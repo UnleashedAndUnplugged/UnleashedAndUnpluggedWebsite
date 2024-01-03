@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/shows.css">
+    <link rel="icon" type="image/png" href="/public/images/logo.png">
+    <title>Upcoming Shows</title>
+  </head>
+  <body>
+    <header></header>
+
+    <main>
+      <img id="page-image">
+      <h1 id="page-title">Upcoming Shows</h1>
+
+      <template id="concert-entry-template">
+        <h1 class="concert-entry-name"></h1>
+        <h2 class="concert-entry-date-time"></h2>
+
+        <div>
+          <img class="concert-entry-img">
+          <p class="concert-entry-description"></p>
+        </div>
+      </template>
+
+      <div id="concert-entries"></div>
+
+      <footer></footer>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="/public/js/shows.js"></script>
+  </body>
+</html>

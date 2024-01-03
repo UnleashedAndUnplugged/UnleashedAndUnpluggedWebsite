@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/gallery.css">
+    <link rel="icon" type="image/png" href="/public/images/logo.png">
+    <title>Gallery</title>
+  </head>
+  <body>
+    <header></header>
+
+    <main>
+      <template id="gallery-show-template">
+        <h1 class="gallery-show-name"></h1>
+        <div class="gallery-show-images1">
+          <div class="gallery-show-images2"></div>
+        </div>
+      </template>
+
+      <h1 id="gallery-title">Gallery</h1>
+      
+      <div id="gallery-shows-container"></div>
+
+      <div id="gallery-image-viewer-container1">
+        <div id="gallery-image-viewer-container2">
+          <img id="gallery-image-viewer">
+          <p id="gallery-image-viewer-hide">X</p>
+        </div>
+      </div>
+      
+      <footer></footer>
+    </main>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="/public/js/gallery.js"></script>
+  </body>
+</html>

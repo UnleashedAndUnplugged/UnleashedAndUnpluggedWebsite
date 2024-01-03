@@ -1,0 +1,65 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#page-image {
+  margin-top: 20px;
+  height: 400px;
+  width: 900px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+#page-title {
+  color: white;
+  background: #4cc2b488;
+  background: #00000088;
+  position: absolute;
+  top: 300px;
+  font-size: 60px;
+  padding: 10px 0;
+  width: 900px;
+  text-align: center;
+}
+
+#concert-entries {
+  width: 1000px;
+}
+
+.concert-entry {
+  width: 100%;
+  margin: 50px 0;
+}
+
+.concert-entry-name {
+  width: 100%;
+  color: #3094ff;
+  text-align: center;
+  font-size: 40px;
+}
+
+.concert-entry-date-time {
+  width: 100%;
+  color: #4cc2b4;
+  text-align: center;
+  font-size: 25px;
+  margin-top: 10px;
+}
+
+.concert-entry > div {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.concert-entry-img {
+  height: 300px;
+  margin-right: 10px;
+}
+
+.concert-entry-description {
+  font-size: 20px;
+}

@@ -1,0 +1,109 @@
+/* section 1 */
+#section1 {
+  display: flex;
+}
+
+#section1-left, #section1-right {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 470px;
+  overflow-y: hidden;
+}
+
+#section1-logo {
+  height: 400px;
+  width: 570px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+
+.section1-picture {
+  border-radius: 50%;
+  height: 140px;
+  width: 140px;
+  background: #333133;
+  margin: 9px 3px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.section1-pic-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* section 2 */
+#section2 {
+  background: #f2f2f2;
+  margin-top: 50px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#section2-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#section2 h1 {
+  margin-bottom: 30px;
+  color: #3094ff;
+  font-size: 40px;
+}
+
+#email-input {
+  font-size: 25px;
+  padding: 10px;
+  width: 70%;
+  margin-right: 50px;
+  border: none;
+  border-radius: 10px;
+  color: #3094ff;
+  background: #e8f3ff;
+  border: 2px solid #3094ff;
+  transition: border 500ms, color 500ms;
+}
+
+#email-input:focus {
+  outline: none;
+  border: 2px solid #4cc2b4;
+  color: #4cc2b4;
+}
+
+#email-submit {
+  border: none;
+  background: #3094ff;
+  transition: background 500ms;
+  padding: 10px 20px;
+  color: white;
+  font-size: 25px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#email-submit:hover {
+  background: #4cc2b4;
+}
+
+/* section 3 */
+#body-title {
+  width: 100%;
+  margin: 30px 0;
+  text-align: center;
+  font-size: 40px;
+  color: #4cc2b4;
+}
+
+#body-text {
+  font-size: 20px;
+  margin: 0 100px 50px 100px;
+  text-align: justify;
+  color: #303a46;
+}

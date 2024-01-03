@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="icon" type="image/png" href="/public/images/logo.png">
+    <title>Unleashed and Unplugged</title>
+  </head>
+  <body>
+    <header></header>
+
+    <main>
+      <form id="admin-login-form">
+        <h1>Admin Login</h1>
+        <input type="password" id="admin-password" placeholder="Enter Password" value="polymorphism">
+        <p id="admin-password-incorrect">Incorrect Password</p>
+        <button type="submit" id="admin-password-submit">Submit</button>
+      </form>
+
+      <div id="admin-controls-container">
+        <div id="admin-email-control-container">
+          <h1>Email Control System</h1>
+          <hr>
+          <br>
+
+          <div id="admin-email-control-panels">
+            <div id="admin-email-list">
+              <template id="admin-email-list-template">
+                <input type="checkbox" class="admin-email-list-select">
+                <p class="admin-email-list-text"></p>
+                <p class="admin-email-list-remove">X</p>
+              </template>
+
+              <h2>Submitted Emails</h2>
+
+              <div id="admin-email-select-all-container">
+                <input type="checkbox" id="admin-email-select-all">
+                <label for="admin-email-select-all">Select All</label>
+              </div>
+
+              <div id="admin-email-list-emails">
+                <div id="admin-email-list-loading-container">
+                  <div id="admin-email-list-loading-icon"></div>
+                  Loading Emails
+                </div>
+              </div>
+
+              <form id="add-email-form">
+                <input id="add-email-input" type="email" placeholder="Add Email">
+                <button id="add-email-submit" type="submit">Add</button>
+              </form>
+            </div>
+
+            <form id="admin-email-editor">
+              <div id="admin-email-recipients">
+                <span class="admin-email-label">Recipients:</span>
+              </div>
+
+              <div id="admin-email-subject-container">
+                <span class="admin-email-label">Subject:</span>
+                <input type="text" id="admin-email-subject" required>
+              </div>
+
+              <textarea id="admin-email-body" required></textarea>
+
+              <div id="admin-email-send-container">
+                <input type="submit" id="admin-email-show-preview" value="Send">
+              </div>
+            </form>
+
+            <div id="admin-email-preview-container1">
+              <div id="admin-email-preview-container2">
+                <h1>Email Preview</h1>
+                <iframe src="/public/components/email.html" title="email-preview" id="admin-email-preview"></iframe>
+                <button id="admin-email-send">Send</button>
+                <p id="admin-email-preview-hide">X</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-home-control-container">
+          <h1>Home Page Controls</h1>
+          <hr>
+          <br>
+          
+          <div id="admin-home-imgs-container1">
+            <h2>Home Page Images</h2>
+            
+            <div id="admin-home-imgs-container2">
+              <div class="admin-home-imgs-row">
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload1">
+                <label for="admin-home-img-upload1">
+                  <img class="admin-home-img" id="admin-home-img1">
+                </label>
+  
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload2">
+                <label for="admin-home-img-upload2">
+                  <img class="admin-home-img" id="admin-home-img2">
+                </label>
+              </div>
+    
+              <div class="admin-home-imgs-row">
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload3">
+                <label for="admin-home-img-upload3">
+                  <img class="admin-home-img" id="admin-home-img3">
+                </label>
+  
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload4">
+                <label for="admin-home-img-upload4">
+                  <img class="admin-home-img" id="admin-home-img4">
+                </label>
+
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload5">
+                <label for="admin-home-img-upload5">
+                  <img class="admin-home-img" id="admin-home-img5">
+                </label>
+              </div>
+    
+              <div class="admin-home-imgs-row">
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload6">
+                <label for="admin-home-img-upload6">
+                  <img class="admin-home-img" id="admin-home-img6">
+                </label>
+  
+                <input type="file" accept="image/*" class="admin-home-img-upload" id="admin-home-img-upload7">
+                <label for="admin-home-img-upload7">
+                  <img class="admin-home-img" id="admin-home-img7">
+                </label>
+              </div>
+            </div>
+
+            <div id="admin-home-imgs-options">
+              <button id="admin-home-imgs-save">Save</button>
+              <button id="admin-home-imgs-reset">Reset</button>
+            </div>
+          </div>
+
+          <div id="admin-home-text-container">
+            <label for="admin-home-text"><h2>Home Page Text</h2></label>
+            <textarea type="text" id="admin-home-text" disabled></textarea>
+            
+            <div id="admin-home-text-options">
+              <button id="admin-home-text-save">Save</button>
+              <button id="admin-home-text-reset">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-house-rules-control-container">
+          <h1>House Rules Page Controls</h1>
+          <hr>
+          <br>
+
+          <div id="admin-house-rules-img-container">
+            <h2>House Rules Page Image</h2>
+            <input type="file" accept="image/*" id="admin-house-rules-img-upload" class="admin-general-page-img-upload" data-page="houseRules">
+            <label for="admin-house-rules-img-upload">
+              <img id="admin-house-rules-img">
+            </label>
+            
+            <div id="admin-house-rules-img-options">
+              <button id="admin-house-rules-img-save" class="admin-general-page-img-save" data-page="houseRules">Save</button>
+              <button id="admin-house-rules-img-reset" class="admin-general-page-img-reset" data-page="houseRules">Reset</button>
+            </div>
+          </div>
+
+          <div id="admin-house-rules-text-container">
+            <label for="admin-house-rules-text"><h2>House Rules Page Text</h2></label>
+            <textarea type="text" id="admin-house-rules-text"></textarea>
+            
+            <div id="admin-house-rules-text-options">
+              <button id="admin-house-rules-text-save" class="admin-general-page-text-save" data-page="houseRules">Save</button>
+              <button id="admin-house-rules-text-reset" class="admin-general-page-text-reset" data-page="houseRules">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-artists-control-container">
+          <h1>For the Artists Page Controls</h1>
+          <hr>
+          <br>
+
+          <div id="admin-artists-img-container">
+            <h2>For the Artists Page Image</h2>
+            <input type="file" accept="image/*" id="admin-artists-img-upload" class="admin-general-page-img-upload" data-page="artists">
+            <label for="admin-artists-img-upload">
+              <img id="admin-artists-img">
+            </label>
+
+            <div id="admin-artists-img-options">
+              <button id="admin-artists-img-save" class="admin-general-page-img-save" data-page="artists">Save</button>
+              <button id="admin-artists-img-reset" class="admin-general-page-img-reset" data-page="artists">Reset</button>
+            </div>
+          </div>
+
+          <div id="admin-artists-text-container">
+            <label for="admin-artists-text"><h2>For the Artists Page Text</h2></label>
+            <textarea type="text" id="admin-artists-text"></textarea>
+
+            <div id="admin-artists-text-options">
+              <button id="admin-artists-text-save" class="admin-general-page-text-save" data-page="artists">Save</button>
+              <button id="admin-artists-text-reset" class="admin-general-page-text-reset" data-page="artists">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-shows-control-container">
+          <h1>Shows Page Controls</h1>
+          <hr>
+          <br>
+
+          <div id="admin-shows-new-entry-container">
+            <h2>New Concert Entry</h2>
+
+            <form id="admin-shows-new-entry">
+              <div id="admin-shows-new-entry-row1">
+                <input type="text" placeholder="Concert Name" id="admin-shows-new-entry-name">
+                <input type="text" placeholder="Concert Date(s)" id="admin-shows-new-entry-date">
+                <input type="text" placeholder="Concert Time" id="admin-shows-new-entry-time">
+              </div>
+
+              <div id="admin-shows-new-entry-row2">
+                <label for="admin-shows-new-entry-img-upload">
+                  <img id="admin-shows-new-entry-img">
+                  <h1 id="admin-shows-new-entry-img-placeholder">Click to Add Image</h1>
+                </label>
+                
+                <input type="file" accept="image/*" id="admin-shows-new-entry-img-upload">
+
+                <textarea id="admin-shows-new-entry-description" placeholder="Concert Description"></textarea>
+              </div>
+
+              <div id="admin-shows-new-entry-row3">
+                <button type="submit" id="admin-shows-new-entry-submit">Save</button>
+                <input type="button" id="admin-shows-new-entry-reset" value="Reset">
+              </div>
+            </form>
+          </div>
+
+          <div id="admin-shows-entries-container">
+            <h2>Current Concert Entries</h2>
+            <br>
+
+            <template id="admin-shows-entry-template">
+              <div class="admin-shows-entry-row1">
+                <input class="admin-shows-entry-name">
+                <input class="admin-shows-entry-date">
+                <input class="admin-shows-entry-time">
+              </div>
+
+              <div class="admin-shows-entry-row2">
+                <label class="admin-shows-entry-img-upload-label">
+                  <img class="admin-shows-entry-img">
+                  <p>Click to Edit</p>
+                </label>
+                <input type="file" accept="image/*" class="admin-shows-entry-img-upload">
+                <textarea class="admin-shows-entry-description"></textarea>
+              </div>
+
+              <div class="admin-shows-entry-row3">
+                <button class="admin-shows-entry-save">Save</button>
+                <button class="admin-shows-entry-reset">Reset</button>
+                <button class="admin-shows-entry-delete">Delete</button>
+              </div>
+
+              <hr>
+            </template>
+
+            <div id="admin-shows-entries"></div>
+          </div>
+        </div>
+
+        <div id="admin-gallery-control-container">
+          <h1>Gallery Page Controls</h1>
+          <hr>
+          <br>
+
+          <div id="admin-gallery-new-entry-container">
+            <h2>New Gallery Entry</h2>
+
+            <form id="admin-gallery-new-entry">
+              <input type="text" placeholder="Concert Title" id="admin-gallery-new-entry-title">
+
+              <template id="admin-gallery-new-entry-img-template">
+                <img class="admin-gallery-new-entry-img">
+
+                <label>
+                  <p class="admin-gallery-new-entry-img-delete">Delete</p>
+                </label>
+              </template>
+
+              <label for="admin-gallery-new-entry-img-upload">
+                <div id="admin-gallery-new-entry-imgs1">
+                  <h1>Click to Upload Images</h1>
+                  <div id="admin-gallery-new-entry-imgs2"></div>
+                </div>
+              </label>
+
+              <input multiple type="file" accept="image/*" id="admin-gallery-new-entry-img-upload">
+
+              <div id="admin-gallery-new-entry-bottom-buttons">
+                <button type="submit" id="admin-gallery-new-entry-submit">Save</button>
+                <input type="button" id="admin-gallery-new-entry-reset" value="Reset">
+              </div>
+            </form>
+          </div>
+
+          <div id="admin-gallery-entries-container">
+            <h2>Current Gallery Entries</h2>
+            <br>
+
+            <template id="admin-gallery-entry-img-template">
+              <img class="admin-gallery-entry-img">
+              <p class="admin-gallery-entry-img-delete">Delete</p>
+            </template>
+
+            <template id="admin-gallery-entry-template">
+              <div class="admin-gallery-entry">
+                <input disabled type="text" class="admin-gallery-entry-name">
+                <p class="admin-gallery-entry-name-edit">Edit Name</p>
+                
+                <div class="admin-gallery-entry-images1">
+                  <div class="admin-gallery-entry-images2"></div>
+                </div>
+              </div>
+
+              <div class="admin-gallery-entry-controls">
+                <input type="file" multiple accept="image/*" class="admin-gallery-entry-img-upload">
+                
+                <button class="admin-gallery-entry-add-img">Add Image</button>
+                <button class="admin-gallery-entry-save">Save</button>
+                <button class="admin-gallery-entry-reset">Reset</button>
+                <button class="admin-gallery-entry-delete">Delete</button>
+              </div>
+            </template>
+
+            <div id="admin-gallery-entries"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="/public/js/admin.js"></script>
+  </body>
+</html>
