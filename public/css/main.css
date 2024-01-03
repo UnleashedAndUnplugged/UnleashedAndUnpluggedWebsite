@@ -41,6 +41,69 @@ header hr {
   margin-bottom: 20px;
 }
 
+#header-hamburger-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+#header-hamburger {
+  display: none;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
+
+#header-hamburger-links {
+  display: none;
+  position: fixed;
+  height: calc(100vh - 130px);
+  background: #f9f9f9;
+  width: 100vw;
+  top: 130px;
+  left: 0;
+  flex-direction: column;
+}
+
+#header-hamburger-links a {
+  height: 20%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 30px;
+  color: #719fc9;
+  transition: color 500ms;
+}
+
+#header-hamburger-links a:hover {
+  color: #4cc2b4;
+}
+
+@media (max-width: 1150px) {
+  #header-links {
+    width: 60%;
+  }
+}
+
+@media (max-width: 950px) {
+  #header-links {
+    width: 70%;
+  }
+}
+
+@media (max-width: 850px) {
+  #header-links {
+    display: none;
+  }
+
+  #header-hamburger {
+    display: flex;
+  }
+}
+
 #header-links > a {
   text-decoration: none;
   font-size: 22px;
