@@ -1,16 +1,24 @@
 /* section 1 */
 #section1 {
   display: flex;
+  justify-content: space-around;
 }
 
 #section1-left, #section1-right {
-  width: 50vw;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0;
   height: 470px;
   overflow-y: hidden;
+}
+
+#section1-left {
+  width: 485px;
+}
+
+#section1-right {
+  width: 435px;
 }
 
 #section1-logo {
@@ -35,6 +43,31 @@
   flex-direction: column;
 }
 
+@media (max-width: 1000px) {
+  #section1 {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 530px) {
+  #section1-left {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  #section1-logo {
+    width: 100%;
+    height: auto;
+  }
+
+  .section1-picture {
+    height: 110px;
+    width: 110px;
+  }
+}
+
 /* section 2 */
 #section2 {
   background: #f2f2f2;
@@ -53,9 +86,17 @@
 }
 
 #section2 h1 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #3094ff;
   font-size: 40px;
+  text-align: center;
+}
+
+#section2 p {
+  color: #4cc2b4;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 #email-input {
@@ -92,6 +133,34 @@
   background: #4cc2b4;
 }
 
+@media (max-width: 550px) {
+  #section2 {
+    padding: 40px 20px;
+  }
+
+  #section2 h1 {
+    font-size: 30px;
+  }
+
+  #section2 p {
+    font-size: 20px;
+  }
+  
+  #section2-inputs {
+    flex-direction: column;
+  }
+
+  #email-submit {
+    margin-top: 30px;
+  }
+
+  #email-input {
+    width: calc(100% - 30px);
+    margin: 0;
+    font-size: 17px;
+  }
+}
+
 /* section 3 */
 #body-title {
   width: 100%;
@@ -106,4 +175,11 @@
   margin: 0 100px 50px 100px;
   text-align: justify;
   color: #303a46;
+}
+
+@media (max-width: 700px) {
+  #body-text {
+    margin: 0 20px 50px 20px;
+    text-align: left;
+  }
 }
