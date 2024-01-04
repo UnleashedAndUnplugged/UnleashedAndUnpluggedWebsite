@@ -1,3 +1,5 @@
+console.log(window.innerWidth);
+
 // loading button animation
 class LoadingAnimation {
   constructor(element, size = 20, thickness = 2, color = "white") {
@@ -106,7 +108,24 @@ class HeaderMessage {
 }
 
 // load header
-$("header").load("/public/components/header.html");
+$("header").load("/public/components/header.html", () => {
+  // hamburger bar
+  let hamburgerBarOpen = false;
+  
+  $("#header-hamburger").click((e) => {
+    if (hamburgerBarOpen) {
+      $("#header-hamburger").attr("src", "/public/images/header/hamburger.svg");
+      $("#header-hamburger").css("height", "30px");
+      $("#header-hamburger-links").hide();
+    } else {
+      $("#header-hamburger").attr("src", "/public/images/header/hamburgerExit.svg");
+      $("#header-hamburger").css("height", "27px");
+      $("#header-hamburger-links").css("display", "flex");
+    }
+
+    hamburgerBarOpen = !hamburgerBarOpen
+  });
+});
 
 // load footer
 $("footer").load("/public/components/footer.html");

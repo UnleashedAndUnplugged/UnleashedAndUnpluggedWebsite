@@ -16,14 +16,18 @@
     <header></header>
 
     <main>
-      <img id="page-image">
-      <h1 id="page-title">Upcoming Shows</h1>
+      <h1 id="shows-title">Shows</h1>
 
       <template id="concert-entry-template">
         <h1 class="concert-entry-name"></h1>
-        <h2 class="concert-entry-date-time"></h2>
 
-        <div>
+        <span class="concert-entry-date-time">
+          <h2 class="concert-entry-date"></h2>
+          <h2 class="concert-entry-date-time-dot">&#x2022;</h2>
+          <h2 class="concert-entry-time"></h2>
+        </span>
+
+        <div class="concert-entry-main-content">
           <img class="concert-entry-img">
           <p class="concert-entry-description"></p>
         </div>

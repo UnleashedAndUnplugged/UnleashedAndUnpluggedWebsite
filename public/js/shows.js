@@ -14,7 +14,8 @@ function generateConcertEntry(data, num) {
   concertEntry.html($("#concert-entry-template").html());
 
   concertEntry.find(".concert-entry-name").text(data.name);
-  concertEntry.find(".concert-entry-date-time").html(data.date + " &#x2022; " + data.time);
+  concertEntry.find(".concert-entry-date").html(data.date);
+  concertEntry.find(".concert-entry-time").html(data.time);
   concertEntry.find(".concert-entry-img").attr("src", "/public/images/shows/" + data.img);
   concertEntry.find(".concert-entry-description").text(data.description);
 

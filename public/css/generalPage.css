@@ -12,15 +12,20 @@ main {
   object-fit: cover;
 }
 
+#page-title-container {
+  position: relative;
+}
+
 #page-title {
   color: white;
   background: #4cc2b488;
   background: #00000088;
   position: absolute;
-  top: 300px;
+  top: 50%;
+  transform: translateY(calc(-50% + 10px));
   font-size: 60px;
   padding: 10px 0;
-  width: 900px;
+  width: 100%;
   text-align: center;
 }
 
@@ -31,4 +36,23 @@ main {
   text-align: justify;
   color: #303a46;
   width: 900px;
+}
+
+@media (max-width: 950px) {
+  #page-image {
+    width: calc(100vw - 50px);
+    aspect-ratio: 9 / 5;
+    height: auto;
+  }
+
+  #page-text {
+    width: calc(100vw - 50px);
+    text-align: left;
+  }
+}
+
+@media (max-width: 700px) {
+  #page-title {
+    font-size: 40px;
+  }
 }
