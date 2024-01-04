@@ -13,11 +13,30 @@ function createGalleryEntry(data) {
       $("#gallery-image-viewer").attr("src", "/public/images/gallery/" + image);
       $("#gallery-image-viewer-container1").css("display", "flex");
     });
-    
-    galleryEntry
-      .find(".gallery-show-images2")
-      .append(img)
-      .width(320 * data.images.length + 20);
+
+    if (window.innerWidth <= 600) {
+      galleryEntry
+        .find(".gallery-show-images2")
+        .append(img)
+        .width(245 * data.images.length + 20);
+    } else {
+      galleryEntry
+        .find(".gallery-show-images2")
+        .append(img)
+        .width(320 * data.images.length + 20);
+    }
+
+    $(window).on("resize", () => {
+      if (window.innerWidth <= 600) {
+        galleryEntry
+          .find(".gallery-show-images2")
+          .width(245 * data.images.length + 20);
+      } else {
+        galleryEntry
+          .find(".gallery-show-images2")
+          .width(320 * data.images.length + 20);
+      }
+    });
   }
 
   $("#gallery-shows-container").append(galleryEntry);

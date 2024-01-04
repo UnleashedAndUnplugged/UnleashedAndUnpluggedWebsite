@@ -13,14 +13,12 @@
   margin: 0 50px 50px 50px;
   width: calc(100vw - 140px);
   border: 2px solid #3094ff;
-  height: 270px;
   overflow-y: hidden;
 }
 
 .gallery-show-images1 {
   overflow-x: auto;
   position: relative;
-  width: 100%;
   height: 240px;
 }
 
@@ -97,4 +95,24 @@
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+@media (max-width: 600px) {
+  .gallery-show-name {
+    font-size: 25px;
+  }
+
+  .gallery-show-image {
+    height: 150px;
+    width: 225px;
+  }
+
+  .gallery-show-images1 {
+    height: 190px;
+  }
+
+  .gallery-show {
+    width: calc(100vw - 80px);
+    margin: 0 20px 50px 20px;
+  }
 }
