@@ -1,5 +1,3 @@
-console.log(window.innerWidth);
-
 // loading button animation
 class LoadingAnimation {
   constructor(element, size = 20, thickness = 2, color = "white") {
