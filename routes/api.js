@@ -270,7 +270,7 @@ router.post("/home/imgs", upload.single("file"), (req, res) => {
 
           function afterDelete() {
             // add file
-            fs.appendFile(`./public/images/home/home${req.body.imgNum}.${extension}`, req.file.buffer, err => {
+            fs.appendFile(`./public/images/home/home${req.body.imgNum}${extension}`, req.file.buffer, err => {
               if (err) {
                 res.status(500);
                 res.json({ status: "failed", msg: "internal server error" });
