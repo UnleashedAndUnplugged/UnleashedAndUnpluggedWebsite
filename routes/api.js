@@ -715,7 +715,8 @@ router.post("/shows/new", upload.single("file"), (req, res) => {
             date: req.body.date,
             time: req.body.time,
             description: req.body.description,
-            img: `concert${showId}${extension}`
+            img: `concert${showId}${extension}`,
+            archived: false
           };
           
           data.push(showData);
@@ -771,6 +772,10 @@ router.post("/shows/update-info", async (req, res) => {
   
           if (typeof req.body.description === "string") {
             showData.description = req.body.description;
+          }
+
+          if (typeof req.body.archived === "boolean") {
+            showData.archived = req.body.archived;
           }
   
           let newData = [];

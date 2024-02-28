@@ -1194,7 +1194,7 @@ function createShowEntry(datum) {
         method: "POST",
         body: JSON.stringify({
           password: adminPassword,
-          id: datum.id,
+          id: datum.id
         }),
         headers: {
           "Content-Type": "application/json"
@@ -1217,6 +1217,49 @@ function createShowEntry(datum) {
     } else {
       element.text("Confirm");
     }
+  });
+
+  if (datum.archived) {
+    div.find(".admin-shows-entry-archive").text("Unarchive");
+  }
+
+  div.find(".admin-shows-entry-archive").click(e => {
+    let element = $(e.target);
+    
+    const loadingAnimation = new LoadingAnimation(element);
+    loadingAnimation.start();
+
+    let archived = element.text() === "Archived";
+
+    fetch("/api/shows/update-info", {
+      method: "POST",
+      body: JSON.stringify({
+        password: adminPassword,
+        id: datum.id,
+        archived: archived
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Show entry archived successfully.", "green", 2);
+        headerMsg.display();
+        loadingAnimation.end();
+
+        if (archived) {
+          element.text("Unarchive");
+        } else {
+          element.text("Archive");
+        }
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when archiving the show entry.", "red", 2);
+        headerMsg.display();
+        loadingAnimation.end();
+      }
+    });
   });
 
   $("#admin-shows-entries").append(div);
