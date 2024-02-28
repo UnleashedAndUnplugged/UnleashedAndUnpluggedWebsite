@@ -13,7 +13,7 @@ header {
   left: 0;
   z-index: 100;
   padding: 0 50px;
-  background: #f9f9f9;
+  background: #929a9c;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -27,7 +27,7 @@ header {
 }
 
 header hr {
-  border: 2px solid #4cc2b4;
+  border: 2px solid #393460;
 }
 
 #header-logo {
@@ -58,7 +58,7 @@ header hr {
   display: none;
   position: fixed;
   height: calc(100vh - 130px);
-  background: #f9f9f9;
+  background: #929a9c;
   width: 100vw;
   top: 130px;
   left: 0;
@@ -74,12 +74,12 @@ header hr {
   font-weight: bold;
   text-decoration: none;
   font-size: 30px;
-  color: #719fc9;
+  color: #36289c;
   transition: color 500ms;
 }
 
 #header-hamburger-links a:hover {
-  color: #4cc2b4;
+  color: #393460;
 }
 
 @media (max-width: 1150px) {
@@ -108,17 +108,17 @@ header hr {
   text-decoration: none;
   font-size: 22px;
   font-weight: bold;
-  color: #719fc9;
+  color: #3d2bc4;
   transition: color 500ms;
 }
 
 #header-links > a:hover, #header-links > #header-link-selected {
-  color: #4cc2b4;
+  color: #393460;
 }
 
 main {
   position: absolute;
-  background: #f9f9f9;
+  background: #929a9c;
   min-height: calc(100vh - 130px);
   width: 100vw;
   top: 0;
@@ -194,6 +194,6 @@ main {
 }
 
 #footer-hr {
-  border: 2px solid #4cc2b4;
+  border: 2px solid #393460;
   margin: 0 50px;
 }
