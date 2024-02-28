@@ -9,7 +9,7 @@ main {
   margin: 30px 0;
   text-align: center;
   font-size: 40px;
-  color: #719fc9;
+  color: #3d2bc4;
 }
 
 #concert-entries {
@@ -30,7 +30,7 @@ main {
 
 .concert-entry-name {
   width: 100%;
-  color: #3094ff;
+  color: #36289c;
   text-align: center;
   font-size: 30px;
   margin-bottom: 10px;
@@ -42,7 +42,7 @@ main {
 
 .concert-entry-date, .concert-entry-date-time-dot, .concert-entry-time {
   width: 100%;
-  color: #4cc2b4;
+  color: #393460;
   text-align: center;
   font-size: 25px;
   margin-top: 10px;
