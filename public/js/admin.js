@@ -1225,11 +1225,11 @@ function createShowEntry(datum) {
 
   div.find(".admin-shows-entry-archive").click(e => {
     let element = $(e.target);
+
+    let archived = element.text() === "Archive";
     
     const loadingAnimation = new LoadingAnimation(element);
     loadingAnimation.start();
-
-    let archived = element.text() === "Archived";
 
     fetch("/api/shows/update-info", {
       method: "POST",
@@ -1249,6 +1249,7 @@ function createShowEntry(datum) {
         headerMsg.display();
         loadingAnimation.end();
 
+        element.css("width", "auto");
         if (archived) {
           element.text("Unarchive");
         } else {
@@ -1269,6 +1270,7 @@ fetch("/api/shows/data")
   .then(response => response.json())
   .then(data => {
     data = data.data;
+    data = data.filter(datum => !datum.archived).concat(data.filter(datum => datum.archived));
 
     for (let datum of data) {
       createShowEntry(datum);
