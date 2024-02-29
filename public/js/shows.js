@@ -23,7 +23,7 @@ function generateConcertEntry(data, num) {
     concertEntry.find("div").css("flex-direction", "row-reverse");
   }
 
-  $("#concert-entries").append(concertEntry);
+  return concertEntry;
 }
 
 // fetch shows info
@@ -32,9 +32,29 @@ fetch("/api/shows/data")
   .then(data => {
     if (data.status === "success") {
       let i = 0;
+
+      if (data.data.filter(datum => !datum.archived).length === 0) {
+        $("#no-upcoming-shows").show();
+      }
+
+      if (data.data.filter(datum => datum.archived).length === 0) {
+        $("#no-past-shows").show();
+      }
+        
       for (let datum of data.data) {
-        generateConcertEntry(datum, i);
+        if (datum.archived) {
+          $("#past-concert-entries").append(generateConcertEntry(datum, i));
+        } else {
+          $("#concert-entries").append(generateConcertEntry(datum, i));
+        }
         i++;
       }
     }
   });
+
+// view past shows
+$("#view-past-shows").click(() => {
+  $("#past-shows-title").show();
+  $("#past-concert-entries").show();
+  $("#view-past-shows").hide();
+});
