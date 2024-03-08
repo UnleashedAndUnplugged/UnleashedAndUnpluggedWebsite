@@ -91,14 +91,15 @@ $("#section2-inputs").submit(e => {
   .then(response => response.json())
   .then(response => {
     if (response.status === "success" || response.msg === "duplicate email") {
-      loadingAnimation.end();
       $("#email-input").val(null);
-      $("#email-submit").attr("disabled", false);
     } else {
       let headerMsg = new HeaderMessage("An error occurred when attempting to submit the email.", "red", 2);
 
       headerMsg.display();
     }
+
+    loadingAnimation.end();
+    $("#email-submit").attr("disabled", false);
   });
 });
 

@@ -789,7 +789,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   width: 100%;
 }
 
-.admin-shows-entry-save, .admin-shows-entry-reset, .admin-shows-entry-delete {
+.admin-shows-entry-save, .admin-shows-entry-reset, .admin-shows-entry-delete, .admin-shows-entry-archive {
   border: none;
   background: #3094ff;
   transition: background 500ms;
@@ -802,7 +802,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   margin-bottom: 15px;
 }
 
-.admin-shows-entry-save:hover, .admin-shows-entry-reset:hover, .admin-shows-entry-delete:hover {
+.admin-shows-entry-save:hover, .admin-shows-entry-reset:hover, .admin-shows-entry-delete:hover, .admin-shows-entry-archive:hover {
   background: #4cc2b4;
 }
 

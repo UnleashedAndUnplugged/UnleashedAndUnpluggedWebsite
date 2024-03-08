@@ -4,16 +4,41 @@ main {
   align-items: center;
 }
 
-#shows-title {
+#shows-title, #past-shows-title {
   width: 100%;
-  margin: 30px 0;
+  margin: 30px 0 0 0 ;
   text-align: center;
   font-size: 40px;
-  color: #719fc9;
+  color: #3d2bc4;
 }
 
-#concert-entries {
+#past-shows-title, #past-concert-entries {
+  display: none;
+}
+
+#concert-entries, #past-concert-entries {
   width: 1000px;
+}
+
+#view-past-shows {
+  font-size: 30px;
+  border: 2px solid #3d2bc4;
+  color: #3d2bc4;
+  border-radius: 100px;
+  padding: 5px 30px;
+  margin-bottom: 20px;
+  user-select: none;
+  cursor: pointer;
+}
+
+#no-upcoming-shows, #no-past-shows {
+  color: #393460;
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+  display: none;
+  word-wrap: normal;
+  padding: 20px 0;
 }
 
 .concert-entry:first-child {
@@ -30,7 +55,7 @@ main {
 
 .concert-entry-name {
   width: 100%;
-  color: #3094ff;
+  color: #36289c;
   text-align: center;
   font-size: 30px;
   margin-bottom: 10px;
@@ -42,7 +67,7 @@ main {
 
 .concert-entry-date, .concert-entry-date-time-dot, .concert-entry-time {
   width: 100%;
-  color: #4cc2b4;
+  color: #393460;
   text-align: center;
   font-size: 25px;
   margin-top: 10px;
@@ -97,5 +122,13 @@ main {
 
   .concert-entry-name {
     margin-bottom: 0;
+  }
+
+  #view-past-shows {
+    font-size: 20px;
+  }
+
+  #no-upcoming-shows, #no-past-shows {
+    font-size: 17px;
   }
 }
