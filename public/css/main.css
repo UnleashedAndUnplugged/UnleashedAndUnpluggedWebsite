@@ -21,6 +21,21 @@
   background: #36289c;
 }
 
+.input {
+  border: none;
+  border-radius: 10px;
+  color: #e6e6e6;
+  background: #2b274f;
+  border: 2px solid #36289c;
+  transition: border 500ms, color 500ms;
+}
+
+.input:focus {
+  outline: none;
+  border: 2px solid #e6e6e6;
+  color: #e6e6e6;
+}
+
 header {
   position: fixed;
   width: calc(100vw - 100px);

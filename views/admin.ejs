@@ -18,9 +18,9 @@
     <main>
       <form id="admin-login-form">
         <h1>Admin Login</h1>
-        <input type="password" id="admin-password" placeholder="Enter Password" value="polymorphism">
+        <input type="password" id="admin-password" class="input" placeholder="Enter Password" value="polymorphism">
         <p id="admin-password-incorrect">Incorrect Password</p>
-        <button type="submit" id="admin-password-submit">Submit</button>
+        <button type="submit" id="admin-password-submit" class="button">Submit</button>
       </form>
 
       <div id="admin-controls-container">
@@ -52,8 +52,8 @@
               </div>
 
               <form id="add-email-form">
-                <input id="add-email-input" type="email" placeholder="Add Email">
-                <button id="add-email-submit" type="submit">Add</button>
+                <input id="add-email-input" type="email" placeholder="Add Email" class="input">
+                <button id="add-email-submit" type="submit" class="button">Add</button>
               </form>
             </div>
 
@@ -64,13 +64,13 @@
 
               <div id="admin-email-subject-container">
                 <span class="admin-email-label">Subject:</span>
-                <input type="text" id="admin-email-subject" required>
+                <input type="text" id="admin-email-subject" class="input" required>
               </div>
 
-              <textarea id="admin-email-body" required></textarea>
+              <textarea id="admin-email-body" class="input" required></textarea>
 
               <div id="admin-email-send-container">
-                <input type="submit" id="admin-email-show-preview" value="Send">
+                <input type="submit" id="admin-email-show-preview" value="Send" class="button">
               </div>
             </form>
 
@@ -78,7 +78,7 @@
               <div id="admin-email-preview-container2">
                 <h1>Email Preview</h1>
                 <iframe src="/public/components/email.html" title="email-preview" id="admin-email-preview"></iframe>
-                <button id="admin-email-send">Send</button>
+                <button id="admin-email-send" class="button">Send</button>
                 <p id="admin-email-preview-hide">X</p>
               </div>
             </div>

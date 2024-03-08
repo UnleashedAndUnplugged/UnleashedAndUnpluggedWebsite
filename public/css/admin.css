@@ -14,7 +14,7 @@ main {
 }
 
 #admin-login-form > h1 {
-  color: #3094ff;
+  color: #36289c;
   margin-bottom: 15px;
 }
 
@@ -22,34 +22,7 @@ main {
   font-size: 18px;
   padding: 10px;
   width: 250px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
-}
-
-#admin-password:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
-}
-
-#admin-password-submit {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-#admin-password-submit:hover {
-  background: #4cc2b4;
 }
 
 #admin-password-incorrect {
@@ -113,12 +86,12 @@ main {
 }
 
 #admin-email-list-emails::-webkit-scrollbar-thumb {
-  background: #3094ff;
+  background: #393460;
   border-radius: 20px;
 }
 
 #admin-email-list > h2 {
-  color: #3094ff;
+  color: #36289c;
   margin-top: 25px;
   font-weight: bold;
   height: 50px;
@@ -128,7 +101,7 @@ main {
   display: flex;
   width: 100%;
   justify-content: center;
-  color: #3094ff;
+  color: #393460;
   font-weight: bold;
   align-items: center;
 }
@@ -153,7 +126,7 @@ main {
 .admin-email-list-text {
   cursor: pointer;
   width: 300px;
-  color: #4cc2b4;
+  color: #393460;
   font-weight: bold;
 }
 
@@ -181,35 +154,12 @@ main {
   font-size: 15px;
   padding: 5px;
   width: 250px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-left: 20px;
 }
 
-#add-email-input:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
-}
-
 #add-email-submit {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
   padding: 7px 13px;
-  color: white;
   font-size: 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-#add-email-submit:hover {
-  background: #4cc2b4;
 }
 
 #admin-email-select-all-container {
@@ -255,7 +205,7 @@ main {
 }
 
 #admin-email-recipients::-webkit-scrollbar-thumb {
-  background: #3094ff;
+  background: #393460;
   border-radius: 20px;
 }
 
@@ -264,7 +214,7 @@ main {
   background: white;
   border-radius: 100px;
   padding: 5px 10px;
-  color: #4cc2b4;
+  color: #36289c;
   font-weight: bold;
   font-size: 15px;
   margin-left: 5px;
@@ -280,19 +230,7 @@ main {
   font-size: 15px;
   padding: 5px;
   width: 300px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
-}
-
-#admin-email-subject:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-email-body {
@@ -300,20 +238,8 @@ main {
   padding: 5px;
   width: 100%;
   height: 200px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   resize: none;
-}
-
-#admin-email-body:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-email-send-container {
@@ -323,17 +249,7 @@ main {
 
 #admin-email-send, #admin-email-show-preview {
   border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
   cursor: pointer;
-}
-
-#admin-email-send:hover, #admin-email-show-preview:hover {
-  background: #4cc2b4;
 }
 
 #admin-email-preview-container1 {
