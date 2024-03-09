@@ -17,9 +17,8 @@ main {
 }
 
 #page-title {
-  color: white;
-  background: #4cc2b488;
-  background: #00000088;
+  color: #3d2bc4;
+  background: #ffffff88;
   position: absolute;
   top: 50%;
   transform: translateY(calc(-50% + 10px));
@@ -34,7 +33,6 @@ main {
   margin-bottom: 50px;
   font-size: 20px;
   text-align: justify;
-  color: #303a46;
   width: 900px;
 }
 

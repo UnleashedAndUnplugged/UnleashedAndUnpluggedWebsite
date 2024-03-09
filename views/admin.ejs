@@ -18,9 +18,9 @@
     <main>
       <form id="admin-login-form">
         <h1>Admin Login</h1>
-        <input type="password" id="admin-password" placeholder="Enter Password" value="polymorphism">
+        <input type="password" id="admin-password" class="input" placeholder="Enter Password" value="polymorphism">
         <p id="admin-password-incorrect">Incorrect Password</p>
-        <button type="submit" id="admin-password-submit">Submit</button>
+        <button type="submit" id="admin-password-submit" class="button">Submit</button>
       </form>
 
       <div id="admin-controls-container">
@@ -52,8 +52,8 @@
               </div>
 
               <form id="add-email-form">
-                <input id="add-email-input" type="email" placeholder="Add Email">
-                <button id="add-email-submit" type="submit">Add</button>
+                <input id="add-email-input" type="email" placeholder="Add Email" class="input">
+                <button id="add-email-submit" type="submit" class="button">Add</button>
               </form>
             </div>
 
@@ -64,13 +64,13 @@
 
               <div id="admin-email-subject-container">
                 <span class="admin-email-label">Subject:</span>
-                <input type="text" id="admin-email-subject" required>
+                <input type="text" id="admin-email-subject" class="input" required>
               </div>
 
-              <textarea id="admin-email-body" required></textarea>
+              <textarea id="admin-email-body" class="input" required></textarea>
 
               <div id="admin-email-send-container">
-                <input type="submit" id="admin-email-show-preview" value="Send">
+                <input type="submit" id="admin-email-show-preview" value="Send" class="button">
               </div>
             </form>
 
@@ -78,7 +78,7 @@
               <div id="admin-email-preview-container2">
                 <h1>Email Preview</h1>
                 <iframe src="/public/components/email.html" title="email-preview" id="admin-email-preview"></iframe>
-                <button id="admin-email-send">Send</button>
+                <button id="admin-email-send" class="button">Send</button>
                 <p id="admin-email-preview-hide">X</p>
               </div>
             </div>
@@ -137,18 +137,18 @@
             </div>
 
             <div id="admin-home-imgs-options">
-              <button id="admin-home-imgs-save">Save</button>
-              <button id="admin-home-imgs-reset">Reset</button>
+              <button id="admin-home-imgs-save" class="button">Save</button>
+              <button id="admin-home-imgs-reset" class="button">Reset</button>
             </div>
           </div>
 
           <div id="admin-home-text-container">
             <label for="admin-home-text"><h2>Home Page Text</h2></label>
-            <textarea type="text" id="admin-home-text" disabled></textarea>
+            <textarea type="text" id="admin-home-text" class="input" disabled></textarea>
             
             <div id="admin-home-text-options">
-              <button id="admin-home-text-save">Save</button>
-              <button id="admin-home-text-reset">Reset</button>
+              <button id="admin-home-text-save" class="button">Save</button>
+              <button id="admin-home-text-reset" class="button">Reset</button>
             </div>
           </div>
         </div>
@@ -166,18 +166,18 @@
             </label>
             
             <div id="admin-house-rules-img-options">
-              <button id="admin-house-rules-img-save" class="admin-general-page-img-save" data-page="houseRules">Save</button>
-              <button id="admin-house-rules-img-reset" class="admin-general-page-img-reset" data-page="houseRules">Reset</button>
+              <button id="admin-house-rules-img-save" class="admin-general-page-img-save button" data-page="houseRules">Save</button>
+              <button id="admin-house-rules-img-reset" class="admin-general-page-img-reset button" data-page="houseRules">Reset</button>
             </div>
           </div>
 
           <div id="admin-house-rules-text-container">
             <label for="admin-house-rules-text"><h2>House Rules Page Text</h2></label>
-            <textarea type="text" id="admin-house-rules-text"></textarea>
+            <textarea type="text" id="admin-house-rules-text" class="input"></textarea>
             
             <div id="admin-house-rules-text-options">
-              <button id="admin-house-rules-text-save" class="admin-general-page-text-save" data-page="houseRules">Save</button>
-              <button id="admin-house-rules-text-reset" class="admin-general-page-text-reset" data-page="houseRules">Reset</button>
+              <button id="admin-house-rules-text-save" class="admin-general-page-text-save button" data-page="houseRules">Save</button>
+              <button id="admin-house-rules-text-reset" class="admin-general-page-text-reset button" data-page="houseRules">Reset</button>
             </div>
           </div>
         </div>
@@ -195,18 +195,18 @@
             </label>
 
             <div id="admin-artists-img-options">
-              <button id="admin-artists-img-save" class="admin-general-page-img-save" data-page="artists">Save</button>
-              <button id="admin-artists-img-reset" class="admin-general-page-img-reset" data-page="artists">Reset</button>
+              <button id="admin-artists-img-save" class="admin-general-page-img-save button" data-page="artists">Save</button>
+              <button id="admin-artists-img-reset" class="admin-general-page-img-reset button" data-page="artists">Reset</button>
             </div>
           </div>
 
           <div id="admin-artists-text-container">
             <label for="admin-artists-text"><h2>For the Artists Page Text</h2></label>
-            <textarea type="text" id="admin-artists-text"></textarea>
+            <textarea type="text" id="admin-artists-text" class="input"></textarea>
 
             <div id="admin-artists-text-options">
-              <button id="admin-artists-text-save" class="admin-general-page-text-save" data-page="artists">Save</button>
-              <button id="admin-artists-text-reset" class="admin-general-page-text-reset" data-page="artists">Reset</button>
+              <button id="admin-artists-text-save" class="admin-general-page-text-save button" data-page="artists">Save</button>
+              <button id="admin-artists-text-reset" class="admin-general-page-text-reset button" data-page="artists">Reset</button>
             </div>
           </div>
         </div>
@@ -221,9 +221,9 @@
 
             <form id="admin-shows-new-entry">
               <div id="admin-shows-new-entry-row1">
-                <input type="text" placeholder="Concert Name" id="admin-shows-new-entry-name">
-                <input type="text" placeholder="Concert Date(s)" id="admin-shows-new-entry-date">
-                <input type="text" placeholder="Concert Time" id="admin-shows-new-entry-time">
+                <input type="text" placeholder="Concert Name" id="admin-shows-new-entry-name" class="input">
+                <input type="text" placeholder="Concert Date(s)" id="admin-shows-new-entry-date" class="input">
+                <input type="text" placeholder="Concert Time" id="admin-shows-new-entry-time" class="input">
               </div>
 
               <div id="admin-shows-new-entry-row2">
@@ -234,25 +234,25 @@
                 
                 <input type="file" accept="image/*" id="admin-shows-new-entry-img-upload">
 
-                <textarea id="admin-shows-new-entry-description" placeholder="Concert Description"></textarea>
+                <textarea id="admin-shows-new-entry-description" class="input" placeholder="Concert Description"></textarea>
               </div>
 
               <div id="admin-shows-new-entry-row3">
-                <button type="submit" id="admin-shows-new-entry-submit">Save</button>
-                <input type="button" id="admin-shows-new-entry-reset" value="Reset">
+                <button type="submit" id="admin-shows-new-entry-submit" class="button">Save</button>
+                <input type="button" id="admin-shows-new-entry-reset" class="button" value="Reset">
               </div>
             </form>
           </div>
 
           <div id="admin-shows-entries-container">
-            <h2>Current Concert Entries</h2>
+            <h2>Concert Entries</h2>
             <br>
 
             <template id="admin-shows-entry-template">
               <div class="admin-shows-entry-row1">
-                <input class="admin-shows-entry-name" placeholder="Concert Name">
-                <input class="admin-shows-entry-date" placeholder="Concert Date(s)">
-                <input class="admin-shows-entry-time" placeholder="Concert Time">
+                <input class="admin-shows-entry-name input" placeholder="Concert Name">
+                <input class="admin-shows-entry-date input" placeholder="Concert Date(s)">
+                <input class="admin-shows-entry-time input" placeholder="Concert Time">
               </div>
 
               <div class="admin-shows-entry-row2">
@@ -261,13 +261,14 @@
                   <p>Click to Edit</p>
                 </label>
                 <input type="file" accept="image/*" class="admin-shows-entry-img-upload">
-                <textarea class="admin-shows-entry-description" placeholder="Concert Description"></textarea>
+                <textarea class="admin-shows-entry-description input" placeholder="Concert Description"></textarea>
               </div>
 
               <div class="admin-shows-entry-row3">
-                <button class="admin-shows-entry-save">Save</button>
-                <button class="admin-shows-entry-reset">Reset</button>
-                <button class="admin-shows-entry-delete">Delete</button>
+                <button class="admin-shows-entry-save button">Save</button>
+                <button class="admin-shows-entry-reset button">Reset</button>
+                <button class="admin-shows-entry-delete button">Delete</button>
+                <button class="admin-shows-entry-archive button">Archive</button>
               </div>
 
               <hr>
@@ -286,7 +287,7 @@
             <h2>New Gallery Entry</h2>
 
             <form id="admin-gallery-new-entry">
-              <input type="text" placeholder="Concert Title" id="admin-gallery-new-entry-title">
+              <input type="text" placeholder="Concert Title" id="admin-gallery-new-entry-title" class="input">
 
               <template id="admin-gallery-new-entry-img-template">
                 <img class="admin-gallery-new-entry-img">
@@ -306,8 +307,8 @@
               <input multiple type="file" accept="image/*" id="admin-gallery-new-entry-img-upload">
 
               <div id="admin-gallery-new-entry-bottom-buttons">
-                <button type="submit" id="admin-gallery-new-entry-submit">Save</button>
-                <input type="button" id="admin-gallery-new-entry-reset" value="Reset">
+                <button type="submit" id="admin-gallery-new-entry-submit" class="button">Save</button>
+                <input type="button" id="admin-gallery-new-entry-reset" class="button" value="Reset">
               </div>
             </form>
           </div>
@@ -334,10 +335,10 @@
               <div class="admin-gallery-entry-controls">
                 <input type="file" multiple accept="image/*" class="admin-gallery-entry-img-upload">
                 
-                <button class="admin-gallery-entry-add-img">Add Image</button>
-                <button class="admin-gallery-entry-save">Save</button>
-                <button class="admin-gallery-entry-reset">Reset</button>
-                <button class="admin-gallery-entry-delete">Delete</button>
+                <button class="admin-gallery-entry-add-img button">Add Image</button>
+                <button class="admin-gallery-entry-save button">Save</button>
+                <button class="admin-gallery-entry-reset button">Reset</button>
+                <button class="admin-gallery-entry-delete button">Delete</button>
               </div>
             </template>
 

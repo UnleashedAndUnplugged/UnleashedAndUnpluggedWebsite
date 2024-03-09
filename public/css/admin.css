@@ -14,7 +14,7 @@ main {
 }
 
 #admin-login-form > h1 {
-  color: #3094ff;
+  color: #36289c;
   margin-bottom: 15px;
 }
 
@@ -22,34 +22,11 @@ main {
   font-size: 18px;
   padding: 10px;
   width: 250px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
 }
 
-#admin-password:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
-}
-
 #admin-password-submit {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-#admin-password-submit:hover {
-  background: #4cc2b4;
+  font-size: 25px;
 }
 
 #admin-password-incorrect {
@@ -113,12 +90,12 @@ main {
 }
 
 #admin-email-list-emails::-webkit-scrollbar-thumb {
-  background: #3094ff;
+  background: #393460;
   border-radius: 20px;
 }
 
 #admin-email-list > h2 {
-  color: #3094ff;
+  color: #36289c;
   margin-top: 25px;
   font-weight: bold;
   height: 50px;
@@ -128,7 +105,7 @@ main {
   display: flex;
   width: 100%;
   justify-content: center;
-  color: #3094ff;
+  color: #393460;
   font-weight: bold;
   align-items: center;
 }
@@ -153,7 +130,7 @@ main {
 .admin-email-list-text {
   cursor: pointer;
   width: 300px;
-  color: #4cc2b4;
+  color: #393460;
   font-weight: bold;
 }
 
@@ -181,35 +158,12 @@ main {
   font-size: 15px;
   padding: 5px;
   width: 250px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-left: 20px;
 }
 
-#add-email-input:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
-}
-
 #add-email-submit {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
   padding: 7px 13px;
-  color: white;
   font-size: 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-#add-email-submit:hover {
-  background: #4cc2b4;
 }
 
 #admin-email-select-all-container {
@@ -255,7 +209,7 @@ main {
 }
 
 #admin-email-recipients::-webkit-scrollbar-thumb {
-  background: #3094ff;
+  background: #393460;
   border-radius: 20px;
 }
 
@@ -264,7 +218,7 @@ main {
   background: white;
   border-radius: 100px;
   padding: 5px 10px;
-  color: #4cc2b4;
+  color: #36289c;
   font-weight: bold;
   font-size: 15px;
   margin-left: 5px;
@@ -280,19 +234,7 @@ main {
   font-size: 15px;
   padding: 5px;
   width: 300px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
-}
-
-#admin-email-subject:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-email-body {
@@ -300,20 +242,8 @@ main {
   padding: 5px;
   width: 100%;
   height: 200px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   resize: none;
-}
-
-#admin-email-body:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-email-send-container {
@@ -323,17 +253,7 @@ main {
 
 #admin-email-send, #admin-email-show-preview {
   border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
   cursor: pointer;
-}
-
-#admin-email-send:hover, #admin-email-show-preview:hover {
-  background: #4cc2b4;
 }
 
 #admin-email-preview-container1 {
@@ -354,7 +274,7 @@ main {
   width: 800px;
   padding: 20px;
   border-radius: 30px;
-  background: #353536;
+  background: #000000;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -378,7 +298,7 @@ main {
 #admin-email-preview-hide {
   user-select: none;
   cursor: pointer;
-  color: #3094ff;
+  color: #36289c;
   font-weight: bold;
   font-size: 25px;
   position: absolute;
@@ -412,21 +332,9 @@ main {
   padding: 5px;
   width: calc(100% - 15px);
   height: 200px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   margin-top: 10px;
   resize: none;
-}
-
-#admin-home-text:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-home-text-options, #admin-home-imgs-options {
@@ -436,19 +344,7 @@ main {
 }
 
 #admin-home-text-save, #admin-home-text-reset, #admin-home-imgs-save, #admin-home-imgs-reset {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
   margin: 0 10px;
-}
-
-#admin-home-text-save:hover, #admin-home-text-reset:hover, #admin-home-imgs-save:hover, #admin-home-imgs-reset:hover {
-  background: #4cc2b4;
 }
 
 #admin-home-imgs-container2 {
@@ -506,20 +402,9 @@ main {
   padding: 5px;
   width: calc(100% - 15px);
   height: 200px;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   margin-top: 10px;
   resize: none;
-}
-
-#admin-house-rules-text:focus, #admin-artists-text:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-house-rules-text-options, #admin-house-rules-img-options, #admin-artists-text-options, #admin-artists-img-options {
@@ -529,19 +414,7 @@ main {
 }
 
 #admin-house-rules-text-save, #admin-house-rules-text-reset, #admin-house-rules-img-save, #admin-house-rules-img-reset, #admin-artists-text-save, #admin-artists-text-reset, #admin-artists-img-save, #admin-artists-img-reset {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
   margin: 0 10px;
-}
-
-#admin-house-rules-text-save:hover, #admin-house-rules-text-reset:hover, #admin-house-rules-img-save:hover, #admin-house-rules-img-reset:hover, #admin-artists-text-save:hover, #admin-artists-text-reset:hover, #admin-artists-img-save:hover, #admin-artists-img-reset:hover {
-  background: #4cc2b4;
 }
 
 label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"] {
@@ -593,20 +466,8 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   font-size: 20px;
   padding: 5px;
   width: 300px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-top: 15px;
   margin-bottom: 15px;
-}
-
-#admin-shows-new-entry-name:focus, #admin-shows-new-entry-date:focus, #admin-shows-new-entry-time:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-shows-new-entry-row2 {
@@ -635,14 +496,14 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 #admin-shows-new-entry-row2 > label:hover > #admin-shows-new-entry-img-placeholder {
-  color: #4cc2b4;
+  color: #3d2bc4;
 }
 
 #admin-shows-new-entry-img-placeholder {
   margin-right: 10px;
   float: left;
   width: 500px;
-  color: #3094ff;
+  color: #36289c;
   text-align: center;
   transition: color 500ms;
   cursor: pointer;
@@ -659,21 +520,10 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   height: 200px;
   font-size: 17px;
   padding: 5px;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   margin-top: 15px;
   resize: none;
   width: 100%;
-}
-
-#admin-shows-new-entry-description:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-shows-new-entry-row3 {
@@ -683,19 +533,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 #admin-shows-new-entry-reset, #admin-shows-new-entry-submit {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
   margin: 0 10px;
-}
-
-#admin-shows-new-entry-reset:hover, #admin-shows-new-entry-submit:hover {
-  background: #4cc2b4;
 }
 
 .admin-shows-entry-row1 {
@@ -708,20 +546,8 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   font-size: 20px;
   padding: 5px;
   width: 300px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-top: 15px;
   margin-bottom: 15px;
-}
-
-.admin-shows-entry-name:focus, .admin-shows-entry-date:focus, .admin-shows-entry-time:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 .admin-shows-entry-row2 {
@@ -766,21 +592,10 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   height: 200px;
   font-size: 17px;
   padding: 5px;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   margin-top: 15px;
   resize: none;
   width: 100%;
-}
-
-.admin-shows-entry-description:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 .admin-shows-entry-row3 {
@@ -789,21 +604,9 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   width: 100%;
 }
 
-.admin-shows-entry-save, .admin-shows-entry-reset, .admin-shows-entry-delete {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
+.admin-shows-entry-save, .admin-shows-entry-reset, .admin-shows-entry-delete, .admin-shows-entry-archive {
   margin: 0 10px;
   margin-bottom: 15px;
-}
-
-.admin-shows-entry-save:hover, .admin-shows-entry-reset:hover, .admin-shows-entry-delete:hover {
-  background: #4cc2b4;
 }
 
 .admin-shows-entry hr {
@@ -835,20 +638,8 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   font-size: 20px;
   padding: 5px;
   width: 300px;
-  border: none;
-  border-radius: 10px;
-  color: #3094ff;
-  background: #e8f3ff;
-  border: 2px solid #3094ff;
-  transition: border 500ms, color 500ms;
   margin-bottom: 15px;
   margin-top: 15px;
-}
-
-#admin-gallery-new-entry-title:focus {
-  outline: none;
-  border: 2px solid #4cc2b4;
-  color: #4cc2b4;
 }
 
 #admin-gallery-new-entry-img-upload {
@@ -856,10 +647,10 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 #admin-gallery-new-entry-imgs1 {
-  background: #f2f2f2;
+  background: #bfcaca;
   border-radius: 40px;
   padding: 20px;
-  border: 2px solid #3094ff;
+  border: 2px solid #393460;
   height: 200px;
   width: calc(100% - 55px);
   cursor: pointer;
@@ -888,7 +679,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 #admin-gallery-new-entry-imgs1::-webkit-scrollbar-thumb, .admin-gallery-entry-images1::-webkit-scrollbar-thumb {
-  background: #4cc2b4;
+  background: #393460;
   border-radius: 20px;
 }
 
@@ -904,8 +695,12 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   transition: color 500ms;
 }
 
+#admin-gallery-new-entry-imgs1 h1 {
+  color: #36289c;  
+}
+
 #admin-gallery-new-entry-imgs1:hover h1 {
-  color: #4cc2b4;
+  color: #3d2bc4;
 }
 
 #admin-gallery-new-entry-bottom-buttons {
@@ -915,19 +710,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 #admin-gallery-new-entry-reset, #admin-gallery-new-entry-submit {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
   margin: 0 10px;
-}
-
-#admin-gallery-new-entry-reset:hover, #admin-gallery-new-entry-submit:hover {
-  background: #4cc2b4;
 }
 
 .admin-gallery-new-entry-img-container {
@@ -969,7 +752,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 
 .admin-gallery-entry-name {
   font-size: 35px;
-  color: #4cc2b4;
+  color: #36289c;
   margin-left: 20px;
   font-weight: bold;
   background: none;
@@ -984,7 +767,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 .admin-gallery-entry-name:enabled {
-  outline: 2px solid #4cc2b4;
+  outline: 2px solid #393460;
 }
 
 .admin-gallery-entry-img {
@@ -995,12 +778,12 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 .admin-gallery-entry {
-  background: #f2f2f2;
+  background: #bfcaca;
   border-radius: 40px;
   padding: 20px;
   margin: 0 50px 0 0;
   width: calc(100vw - 155px);
-  border: 2px solid #3094ff;
+  border: 2px solid #393460;
   height: 300px;
   overflow-y: hidden;
 }
@@ -1016,19 +799,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 .admin-gallery-entry-save, .admin-gallery-entry-reset, .admin-gallery-entry-delete, .admin-gallery-entry-add-img {
-  border: none;
-  background: #3094ff;
-  transition: background 500ms;
-  padding: 10px 20px;
-  color: white;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
   margin: 20px 10px;
-}
-
-.admin-gallery-entry-save:hover, .admin-gallery-entry-reset:hover, .admin-gallery-entry-delete:hover, .admin-gallery-entry-add-img:hover {
-  background: #4cc2b4;
 }
 
 .admin-gallery-entry-name-edit {
