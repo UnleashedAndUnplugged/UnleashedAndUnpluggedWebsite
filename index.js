@@ -22,6 +22,11 @@ app.use("/", mainRouter);
 app.use("/admin", adminRouter);
 app.use("/api", apiRouter);
 
+// 404 page
+app.use((req, res) => {
+  res.render("404.ejs");
+});
+
 // database setup
 const port = process.env.PORT || 3001;
 
