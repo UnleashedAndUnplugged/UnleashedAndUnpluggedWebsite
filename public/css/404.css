@@ -1,0 +1,29 @@
+main {
+  height: calc(100vh - 130px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#logo {
+  height: 200px;
+}
+
+#heading {
+  margin: 10px;
+  font-size: 35px;
+  color: #3d2bc4;
+}
+
+#message {
+  font-size: 25px;
+  color: #393460;
+  width: 700px;
+  text-align: center;
+}
+
+#home-page-link {
+  color: #36289c;
+  text-decoration: none;
+}
