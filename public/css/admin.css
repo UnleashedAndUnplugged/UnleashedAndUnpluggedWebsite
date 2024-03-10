@@ -306,6 +306,48 @@ main {
   right: 20px;
 }
 
+/* admin general site controls */
+#admin-site-control-container {
+  width: calc(100vw - 100px);
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#admin-site-control-container > h1 {
+  color: #333133;
+  font-weight: bold;
+}
+
+#admin-site-control-container > hr {
+  border: 1.5px solid #1c1b1c;
+  margin-bottom: 20px;
+}
+
+#admin-site-logo-container h2 {
+  color: #333133;
+}
+
+#admin-site-logo-upload {
+  display: none;
+}
+
+#admin-site-logo {
+  height: 200px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#admin-site-logo-row1, #admin-site-logo-row2 {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+#admin-site-logo-save, #admin-site-logo-save {
+  margin: 0 10px;
+}
+
 /* admin home control panel */
 #admin-home-control-container {
   width: calc(100vw - 100px);

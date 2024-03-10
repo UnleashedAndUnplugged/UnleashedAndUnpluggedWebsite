@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/main.css">
     <link rel="stylesheet" href="/public/css/admin.css">
-    <link rel="icon" type="image/png" href="/public/images/logo.png">
+    <link rel="icon" type="image/png" href="/api/logo">
     <title>Unleashed and Unplugged</title>
   </head>
   <body>
@@ -81,6 +81,28 @@
                 <button id="admin-email-send" class="button">Send</button>
                 <p id="admin-email-preview-hide">X</p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-site-control-container">
+          <h1>General Site Controls</h1>
+          <hr>
+          <br>
+
+          <div id="admin-site-logo-container">
+            <h2>Site Logo</h2>
+
+            <div id="admin-site-logo-row1">
+              <input type="file" accept="image/*" id="admin-site-logo-upload">
+              <label for="admin-site-logo-upload">
+                <img src="/api/logo" id="admin-site-logo">
+              </label>
+            </div>
+
+            <div id="admin-site-logo-row2">
+              <button id="admin-site-logo-save" class="button">Save</button>
+              <button id="admin-site-logo-reset" class="button">Reset</button>
             </div>
           </div>
         </div>
