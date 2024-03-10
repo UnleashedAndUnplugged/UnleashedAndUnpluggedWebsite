@@ -933,5 +933,100 @@ router.post("/shows/delete", (req, res) => {
   }
 });
 
+router.get("/settings", (req, res) => {
+  fs.readFile("./storage/siteSettings.json", (err, data) => {
+    if (err) {
+      res.status(500);
+      res.json({ status: "failed", msg: "internal server error" });
+      return;
+    }
+
+    res.json({ status: "success", data: JSON.parse(data) });
+  });
+});
+
+router.post("/settings", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (typeof req.body.json === "string") {
+      fs.writeFile("./storage/siteSettings.json", JSON.stringify(req.body.json), err => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+        } else {
+          res.json({ status: "success" });
+        }
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
+router.get("/logo", (req, res) => {
+  fs.readFile("./storage/siteSettings.json", (err, data) => {
+    if (err) {
+      res.status(500);
+      res.json({ status: "failed", msg: "internal server error" });
+      return;
+    }
+
+    let fileName = JSON.parse(data).logo;
+    res.sendFile(path.join(__dirname, "../public/images/" + fileName));
+  });
+});
+
+router.post("/logo", upload.single("file"), (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (req.file) {
+      fs.readFile("./storage/siteSettings.json", (err, data) => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        let fileName = JSON.parse(data).logo;
+
+        fs.unlink("./public/images/" + fileName, err => {
+          if (err) {
+            res.status(500);
+            res.json({ status: "failed", msg: "internal server error" });
+          }
+
+          let newFileName = "logo" + path.extname(req.file.originalname);
+          fs.appendFile("./public/images/" + newFileName, req.file.buffer, err => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+            }
+
+            let newSettings = JSON.parse(data);
+            newSettings.logo = newFileName;
+
+            fs.writeFile("./storage/siteSettings.json", JSON.stringify(newSettings), err => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+              } else {
+                res.json({ status: "success" });
+              }
+            });
+          });
+        });
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
 // export router
 module.exports = router;

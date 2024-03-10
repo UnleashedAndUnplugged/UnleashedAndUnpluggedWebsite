@@ -1276,3 +1276,40 @@ fetch("/api/shows/data")
       createShowEntry(datum);
     }
   });
+
+// admin logo editor
+$("#admin-site-logo-upload")
+  .on("change", e => {
+    $("#admin-site-logo").attr("src", URL.createObjectURL(e.target.files[0]));
+  });
+
+$("#admin-site-logo-save").click(() => {
+  const loadingAnimation = new LoadingAnimation($("#admin-site-logo-save"));
+  loadingAnimation.start();
+
+  let formData = new FormData();
+  formData.append("password", adminPassword);
+  formData.append("file", $("#admin-site-logo-upload").get(0).files[0]);
+
+  fetch("/api/logo", {
+    method: "post",
+    body: formData,
+  })
+  .then(response => response.json())
+  .then(response2 => {
+    if (response2.status === "success") {
+      const headerMsg = new HeaderMessage("Logo updated successfully.", "green", 2);
+      headerMsg.display();
+    } else {
+      const headerMsg = new HeaderMessage("An error occurred when updating the logo.", "red", 2);
+      headerMsg.display();
+    }
+
+    loadingAnimation.end();
+  });
+});
+
+$("#admin-site-logo-reset").click(() => {
+  $("#admin-site-logo").attr("src", "/api/logo");
+  $("#admin-site-logo-unpload").val(null);
+});
