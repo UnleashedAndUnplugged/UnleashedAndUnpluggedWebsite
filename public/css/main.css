@@ -1,5 +1,5 @@
 * {
-  font-family: "Ojuju", Ubuntu;
+  font-family: "test", Ubuntu;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -7,7 +7,7 @@
 }
 
 .header {
-  font-family: "Ojuju", Ubuntu;
+  font-family: "Ubuntu", Ubuntu;
 }
 
 .button {

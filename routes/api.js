@@ -1157,5 +1157,44 @@ router.post("/font/set", (req, res) => {
   }
 });
 
+router.post("/font/reset", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    fs.readFile("./storage/siteSettings.json", (err, data) => {
+      if (err) {
+        res.status(500);
+        res.json({ status: "failed", msg: "internal server error" });
+        return;
+      }
+
+      let settings = JSON.parse(data);
+
+      settings.fonts = [];
+      settings.mainFont = "Ubuntu";
+      settings.headerFont = "Ubuntu";
+
+      fs.writeFile("./storage/siteSettings.json", JSON.stringify(settings), err => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        fs.writeFile("./public/components/fontLinks.html", "", err => {
+          if (err) {
+            res.status(500);
+            res.json({ status: "failed", msg: "internal server error" });
+            return;
+          }
+
+          res.json({ status: "success" });
+        });
+      });
+    });
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
 // export router
 module.exports = router;

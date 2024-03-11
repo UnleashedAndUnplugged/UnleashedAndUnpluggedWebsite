@@ -1351,13 +1351,14 @@ $("#admin-site-font-form").submit(e => {
         const headerMsg = new HeaderMessage("An error occurred when importing the font.", "red", 2);
         headerMsg.display();
       }
+
+      loadingAnimation.end();
     });
   } else {
     const headerMsg = new HeaderMessage("The font import is invalid.", "red", 2);
     headerMsg.display();
+    loadingAnimation.end();
   }
-
-  loadingAnimation.end();
 });
 
 // load font options
@@ -1406,4 +1407,38 @@ $("#admin-site-font-save").click(() => {
 
     loadingAnimation.end();
   });
+});
+
+// reset fonts
+$("#admin-site-font-import-reset").click(() => {
+  if ($("#admin-site-font-import-reset").text() === "Confirm") {
+    const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-reset"));
+    loadingAnimation.start();
+    
+    fetch("/api/font/reset", {
+      method: "POST",
+      body: JSON.stringify({
+        password: adminPassword
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Fonts reset successfully.", "green", 2);
+        headerMsg.display();
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when reseting the fonts.", "red", 2);
+        headerMsg.display();
+      }
+  
+      loadingAnimation.end();
+      $("#admin-site-font-import-reset").css("width", "auto");
+      $("#admin-site-font-import-reset").text("Reset Fonts");
+    });
+  } else {
+    $("#admin-site-font-import-reset").text("Confirm");
+  }
 });

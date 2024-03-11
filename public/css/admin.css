@@ -392,6 +392,10 @@ main {
   height: 200px;
 }
 
+#admin-site-font-import-submit {
+  margin: 0 10px;
+}
+
 /* admin home control panel */
 #admin-home-control-container {
   width: calc(100vw - 100px);
