@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/public/css/main.css">
     <link rel="stylesheet" href="/public/css/admin.css">
     <link rel="icon" type="image/png" href="/api/logo">
+    <div id="font-links-container"></div>
     <title>Unleashed and Unplugged</title>
   </head>
   <body>
@@ -103,6 +104,40 @@
             <div id="admin-site-logo-row2">
               <button id="admin-site-logo-save" class="button">Save</button>
               <button id="admin-site-logo-reset" class="button">Reset</button>
+            </div>
+          </div>
+
+          <div id="admin-site-font-container">
+            <h2>Font Editor</h2>
+
+            <div id="admin-site-font-row1">
+              <span>
+                <label for="admin-site-main-font">Main Font:</label>
+                <select id="admin-site-main-font" class="input">
+                  <option value="Ubuntu">Ubuntu</option>
+                </select>
+              </span>
+
+              <span>
+                <label for="admin-site-header-font">Header Font:</label>
+                <select id="admin-site-header-font" class="input">
+                  <option value="Ubuntu">Ubuntu</option>
+                </select>
+              </span>
+            </div>
+
+            <div id="admin-site-font-row2">
+              <button id="admin-site-font-save" class="button">Save</button>
+              <button id="admin-site-font-reset" class="button">Reset</button>
+            </div>
+
+            <div id="admin-site-font-row3">
+              <label for="admin-site-font-import">Import Font:</label>
+              <textarea class="input" id="admin-site-font-import" placeholder="Enter embed code from Google Fonts."></textarea>
+            </div>
+
+            <div id="admin-site-font-row4">
+              <button id="admin-site-font-import-submit" class="button">Import</button>
             </div>
           </div>
         </div>

@@ -1,1 +1,6 @@
-{"logo":"logo.png"}
+{
+  "logo":"logo.png",
+  "fonts": [],
+  "mainFont": "Ubuntu",
+  "headerFont": "Ubuntu"
+}
