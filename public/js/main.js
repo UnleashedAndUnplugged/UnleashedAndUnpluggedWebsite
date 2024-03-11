@@ -127,3 +127,10 @@ $("header").load("/public/components/header.html", () => {
 
 // load footer
 $("footer").load("/public/components/footer.html");
+
+// load fonts
+fetch("/public/components/fontLinks.html")
+  .then(response => response.text())
+  .then(response => {
+    $("head").get(0).innerHTML += response;
+  });

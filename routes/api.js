@@ -1028,7 +1028,7 @@ router.post("/logo", upload.single("file"), (req, res) => {
   }
 });
 
-router.post("/font", (req, res) => {
+router.post("/font/import", (req, res) => {
   if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
     if (typeof req.body.embed === "string" && typeof req.body.name === "string") {
       // add font link
@@ -1070,6 +1070,82 @@ router.post("/font", (req, res) => {
             });
           });
         });
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
+router.post("/font/set", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (typeof req.body.mainFont === "string" && typeof req.body.headerFont === "string") {
+      // update site settings
+      fs.readFile("./storage/siteSettings.json", (err, data) => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        let settings = JSON.parse(data);
+
+        if (settings.fonts.includes(req.body.mainFont) && settings.fonts.includes(req.body.headerFont)) {
+          settings.mainFont = req.body.mainFont;
+          settings.headerFont = req.body.headerFont;
+          
+          fs.writeFile("./storage/siteSettings.json", JSON.stringify(settings), err => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+              return;
+            }
+
+            fs.readFile("./public/css/main.css", (err, data) => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+                return;
+              }
+
+              let css = data.toString();
+
+              // set main font
+              let preStr = "* {\n  font-family: ";
+              let startIndex = css.indexOf(preStr);
+              let endIndex = css.indexOf(";");
+
+              css = css.substring(0, startIndex + preStr.length) + '"' + req.body.mainFont + '"' + ", Ubuntu" + css.substring(endIndex);
+
+              // set header font
+              preStr = ".header {\n  font-family: ";
+              startIndex = css.indexOf(preStr);
+              endIndex = css.indexOf(";", startIndex);
+
+              css = css.substring(0, startIndex + preStr.length) + '"' + req.body.headerFont + '"' + ", Ubuntu" + css.substring(endIndex);
+
+              // update css file
+              fs.writeFile("./public/css/main.css", css, err => {
+                if (err) {
+                  if (err) {
+                    res.status(500);
+                    res.json({ status: "failed", msg: "internal server error" });
+                    return;
+                  }
+                }
+
+                res.json({ status: "success" });
+              });
+            });
+          });
+        } else {
+          res.status(400);
+          res.json({ status: "failed", msg: "invalid data" });
+        }
       });
     } else {
       res.status(400);

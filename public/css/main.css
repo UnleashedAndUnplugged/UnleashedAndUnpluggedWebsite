@@ -1,5 +1,5 @@
 * {
-  font-family: Ubuntu;
+  font-family: "Roboto Slab", Ubuntu;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -7,7 +7,7 @@
 }
 
 .header {
-  font-family: Ubuntu;
+  font-family: "Ojuju", Ubuntu;
 }
 
 .button {

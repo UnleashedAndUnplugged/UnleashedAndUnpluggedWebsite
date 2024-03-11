@@ -1324,7 +1324,7 @@ $("#admin-site-font-form").submit(e => {
   const fontName = $("#admin-site-font-name").val();
 
   if (importStr.substring(0, 5) === "<link") {
-    fetch("/api/font", {
+    fetch("/api/font/import", {
       method: "POST",
       body: JSON.stringify({
         password: adminPassword,
@@ -1377,3 +1377,33 @@ function loadFontOptions() {
 }
 
 loadFontOptions();
+
+// submit fonts
+$("#admin-site-font-save").click(() => {
+  const loadingAnimation = new LoadingAnimation($("#admin-site-font-save"));
+  loadingAnimation.start();
+
+  fetch("/api/font/set", {
+    method: "POST",
+    body: JSON.stringify({
+      password: adminPassword,
+      headerFont: $("#admin-site-header-font").val(),
+      mainFont: $("#admin-site-main-font").val()
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(response => {
+    if (response.status === "success") {
+      const headerMsg = new HeaderMessage("Fonts updated successfully.", "green", 2);
+      headerMsg.display();
+    } else {
+      const headerMsg = new HeaderMessage("An error occurred when updating the fonts.", "red", 2);
+      headerMsg.display();
+    }
+
+    loadingAnimation.end();
+  });
+});
