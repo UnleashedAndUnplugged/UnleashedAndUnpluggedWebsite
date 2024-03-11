@@ -1094,7 +1094,7 @@ router.post("/font/set", (req, res) => {
 
         let settings = JSON.parse(data);
 
-        if (settings.fonts.includes(req.body.mainFont) && settings.fonts.includes(req.body.headerFont)) {
+        if ((settings.fonts.includes(req.body.mainFont) || req.body.mainFont === "Ubuntu") && (settings.fonts.includes(req.body.headerFont) || req.body.headerFont === "Ubuntu")) {
           settings.mainFont = req.body.mainFont;
           settings.headerFont = req.body.headerFont;
           
