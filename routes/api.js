@@ -1081,6 +1081,24 @@ router.post("/font/import", (req, res) => {
   }
 });
 
+function editFontCSS(css, mainFont, headerFont) {
+  // set main font
+  let preStr = "* {\n  font-family: ";
+  let startIndex = css.indexOf(preStr);
+  let endIndex = css.indexOf(";");
+
+  css = css.substring(0, startIndex + preStr.length) + '"' + mainFont + '"' + ", Ubuntu" + css.substring(endIndex);
+
+  // set header font
+  preStr = ".header {\n  font-family: ";
+  startIndex = css.indexOf(preStr);
+  endIndex = css.indexOf(";", startIndex);
+
+  css = css.substring(0, startIndex + preStr.length) + '"' + headerFont + '"' + ", Ubuntu" + css.substring(endIndex);
+
+  return css;
+}
+
 router.post("/font/set", (req, res) => {
   if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
     if (typeof req.body.mainFont === "string" && typeof req.body.headerFont === "string") {
@@ -1112,21 +1130,7 @@ router.post("/font/set", (req, res) => {
                 return;
               }
 
-              let css = data.toString();
-
-              // set main font
-              let preStr = "* {\n  font-family: ";
-              let startIndex = css.indexOf(preStr);
-              let endIndex = css.indexOf(";");
-
-              css = css.substring(0, startIndex + preStr.length) + '"' + req.body.mainFont + '"' + ", Ubuntu" + css.substring(endIndex);
-
-              // set header font
-              preStr = ".header {\n  font-family: ";
-              startIndex = css.indexOf(preStr);
-              endIndex = css.indexOf(";", startIndex);
-
-              css = css.substring(0, startIndex + preStr.length) + '"' + req.body.headerFont + '"' + ", Ubuntu" + css.substring(endIndex);
+              let css = editFontCSS(data.toString(), req.body.mainFont, req.body.headerFont);
 
               // update css file
               fs.writeFile("./public/css/main.css", css, err => {
@@ -1186,7 +1190,25 @@ router.post("/font/reset", (req, res) => {
             return;
           }
 
-          res.json({ status: "success" });
+          fs.readFile("./public/css/main.css", (err, data) => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+              return;
+            }
+
+            let css = editFontCSS(data.toString(), "Ubuntu", "Ubuntu");
+
+            fs.writeFile("./public/css/main.css", css, err => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+                return;
+              }
+
+              res.json({ status: "success" });
+            });
+          });
         });
       });
     });
