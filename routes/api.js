@@ -1028,5 +1028,195 @@ router.post("/logo", upload.single("file"), (req, res) => {
   }
 });
 
+router.post("/font/import", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (typeof req.body.embed === "string" && typeof req.body.name === "string") {
+      // add font link
+      fs.readFile("./public/components/fontLinks.html", (err, data) => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        let text = data.toString() + req.body.embed;
+
+        fs.writeFile("./public/components/fontLinks.html", text, err => {
+          if (err) {
+            res.status(500);
+            res.json({ status: "failed", msg: "internal server error" });
+            return;
+          }
+
+          // add font to options
+          fs.readFile("./storage/siteSettings.json", (err, data) => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+              return;
+            }
+
+            let json = JSON.parse(data);
+            json.fonts.push(req.body.name);
+
+            fs.writeFile("./storage/siteSettings.json", JSON.stringify(json), err => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+                return;
+              }
+
+              res.json({ status: "success" });
+            });
+          });
+        });
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
+function editFontCSS(css, mainFont, headerFont) {
+  // set main font
+  let preStr = "* {\n  font-family: ";
+  let startIndex = css.indexOf(preStr);
+  let endIndex = css.indexOf(";");
+
+  css = css.substring(0, startIndex + preStr.length) + '"' + mainFont + '"' + ", Ubuntu" + css.substring(endIndex);
+
+  // set header font
+  preStr = ".header {\n  font-family: ";
+  startIndex = css.indexOf(preStr);
+  endIndex = css.indexOf(";", startIndex);
+
+  css = css.substring(0, startIndex + preStr.length) + '"' + headerFont + '"' + ", Ubuntu" + css.substring(endIndex);
+
+  return css;
+}
+
+router.post("/font/set", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (typeof req.body.mainFont === "string" && typeof req.body.headerFont === "string") {
+      // update site settings
+      fs.readFile("./storage/siteSettings.json", (err, data) => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        let settings = JSON.parse(data);
+
+        if ((settings.fonts.includes(req.body.mainFont) || req.body.mainFont === "Ubuntu") && (settings.fonts.includes(req.body.headerFont) || req.body.headerFont === "Ubuntu")) {
+          settings.mainFont = req.body.mainFont;
+          settings.headerFont = req.body.headerFont;
+          
+          fs.writeFile("./storage/siteSettings.json", JSON.stringify(settings), err => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+              return;
+            }
+
+            fs.readFile("./public/css/main.css", (err, data) => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+                return;
+              }
+
+              let css = editFontCSS(data.toString(), req.body.mainFont, req.body.headerFont);
+
+              // update css file
+              fs.writeFile("./public/css/main.css", css, err => {
+                if (err) {
+                  if (err) {
+                    res.status(500);
+                    res.json({ status: "failed", msg: "internal server error" });
+                    return;
+                  }
+                }
+
+                res.json({ status: "success" });
+              });
+            });
+          });
+        } else {
+          res.status(400);
+          res.json({ status: "failed", msg: "invalid data" });
+        }
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
+router.post("/font/reset", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    fs.readFile("./storage/siteSettings.json", (err, data) => {
+      if (err) {
+        res.status(500);
+        res.json({ status: "failed", msg: "internal server error" });
+        return;
+      }
+
+      let settings = JSON.parse(data);
+
+      settings.fonts = [];
+      settings.mainFont = "Ubuntu";
+      settings.headerFont = "Ubuntu";
+
+      fs.writeFile("./storage/siteSettings.json", JSON.stringify(settings), err => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        fs.writeFile("./public/components/fontLinks.html", "", err => {
+          if (err) {
+            res.status(500);
+            res.json({ status: "failed", msg: "internal server error" });
+            return;
+          }
+
+          fs.readFile("./public/css/main.css", (err, data) => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+              return;
+            }
+
+            let css = editFontCSS(data.toString(), "Ubuntu", "Ubuntu");
+
+            fs.writeFile("./public/css/main.css", css, err => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+                return;
+              }
+
+              res.json({ status: "success" });
+            });
+          });
+        });
+      });
+    });
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
 // export router
 module.exports = router;
