@@ -1,6 +1,1 @@
-{
-  "logo":"logo.png",
-  "fonts": [],
-  "mainFont": "Ubuntu",
-  "headerFont": "Ubuntu"
-}
+{"logo":"logo.png","fonts":["Ojuju","Noto Sans Khojki","Roboto Slab"],"mainFont":"Roboto Slab","headerFont":"Ubuntu"}

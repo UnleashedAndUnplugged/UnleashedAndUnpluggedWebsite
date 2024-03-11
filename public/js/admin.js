@@ -1313,3 +1313,67 @@ $("#admin-site-logo-reset").click(() => {
   $("#admin-site-logo").attr("src", "/api/logo");
   $("#admin-site-logo-unpload").val(null);
 });
+
+// font import
+$("#admin-site-font-form").submit(e => {
+  e.preventDefault();
+  const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-submit"));
+  loadingAnimation.start();
+
+  const importStr = $("#admin-site-font-import").val();
+  const fontName = $("#admin-site-font-name").val();
+
+  if (importStr.substring(0, 5) === "<link") {
+    fetch("/api/font", {
+      method: "POST",
+      body: JSON.stringify({
+        password: adminPassword,
+        embed: importStr,
+        name: fontName
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Font imported successfully.", "green", 2);
+        headerMsg.display();
+        $("#admin-site-font-import").val(null);
+        $("#admin-site-font-name").val(null);
+
+        // add option to font selectors
+        let option = $(`<option name="${fontName}">${fontName}</option>`);
+        $("#admin-site-header-font").append(option.clone());
+        $("#admin-site-main-font").append(option.clone());
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when importing the font.", "red", 2);
+        headerMsg.display();
+      }
+    });
+  } else {
+    const headerMsg = new HeaderMessage("The font import is invalid.", "red", 2);
+    headerMsg.display();
+  }
+
+  loadingAnimation.end();
+});
+
+// load font options
+function loadFontOptions() {
+  fetch("/api/settings")
+    .then(response => response.json())
+    .then(response => {
+      for (let font of response.data.fonts) {
+        let option = $(`<option name="${font}">${font}</option>`);
+        $("#admin-site-header-font").append(option.clone());
+        $("#admin-site-main-font").append(option.clone());
+      }
+
+      $("#admin-site-header-font").val(response.data.headerFont);
+      $("#admin-site-main-font").val(response.data.mainFont);
+    });
+}
+
+loadFontOptions();

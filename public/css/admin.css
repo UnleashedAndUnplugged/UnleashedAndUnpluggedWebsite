@@ -376,6 +376,13 @@ main {
   width: 500px;
 }
 
+#admin-site-font-name {
+  width: 500px;
+  padding: 5px;
+  font-size: 15px;
+  margin: 10px 0;
+}
+
 #admin-site-font-import {
   padding: 5px;
   resize: none;

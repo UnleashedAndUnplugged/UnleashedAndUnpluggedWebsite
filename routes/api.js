@@ -1028,5 +1028,58 @@ router.post("/logo", upload.single("file"), (req, res) => {
   }
 });
 
+router.post("/font", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (typeof req.body.embed === "string" && typeof req.body.name === "string") {
+      // add font link
+      fs.readFile("./public/components/fontLinks.html", (err, data) => {
+        if (err) {
+          res.status(500);
+          res.json({ status: "failed", msg: "internal server error" });
+          return;
+        }
+
+        let text = data.toString() + req.body.embed;
+
+        fs.writeFile("./public/components/fontLinks.html", text, err => {
+          if (err) {
+            res.status(500);
+            res.json({ status: "failed", msg: "internal server error" });
+            return;
+          }
+
+          // add font to options
+          fs.readFile("./storage/siteSettings.json", (err, data) => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+              return;
+            }
+
+            let json = JSON.parse(data);
+            json.fonts.push(req.body.name);
+
+            fs.writeFile("./storage/siteSettings.json", JSON.stringify(json), err => {
+              if (err) {
+                res.status(500);
+                res.json({ status: "failed", msg: "internal server error" });
+                return;
+              }
+
+              res.json({ status: "success" });
+            });
+          });
+        });
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
 // export router
 module.exports = router;

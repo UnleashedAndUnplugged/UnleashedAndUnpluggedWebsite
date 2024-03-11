@@ -131,14 +131,17 @@
               <button id="admin-site-font-reset" class="button">Reset</button>
             </div>
 
-            <div id="admin-site-font-row3">
-              <label for="admin-site-font-import">Import Font:</label>
-              <textarea class="input" id="admin-site-font-import" placeholder="Enter embed code from Google Fonts."></textarea>
-            </div>
-
-            <div id="admin-site-font-row4">
-              <button id="admin-site-font-import-submit" class="button">Import</button>
-            </div>
+            <form id="admin-site-font-form">
+              <div id="admin-site-font-row3">
+                <label for="admin-site-font-name">Import Font:</label>
+                <input class="input" id="admin-site-font-name" placeholder="Enter font name" required>
+                <textarea class="input" id="admin-site-font-import" placeholder="Enter embed code from Google Fonts." required></textarea>
+              </div>
+  
+              <div id="admin-site-font-row4">
+                <button id="admin-site-font-import-submit" type="submit" class="button">Import</button>
+              </div>
+            </form>
           </div>
         </div>
 
