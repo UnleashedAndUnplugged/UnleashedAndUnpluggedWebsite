@@ -242,6 +242,45 @@ router.post("/home/text", (req, res) => {
   }
 });
 
+router.get("/home/contact/text", (req, res) => {
+  fs.readFile("./storage/homeContactInfo.txt", (err, data) => {
+    if (err) {
+      res.status(500);
+      res.json({ msg: "internal server error" });
+    } else {
+      res.json({ text: data.toString() });
+    }
+  });
+});
+
+router.post("/home/contact/text", (req, res) => {
+  if (typeof req.body.password === "string" && req.body.password === process.env.ADMIN_PASSWORD) {
+    if (typeof req.body.text === "string") {
+      fs.readFile("./storage/homeContactInfo.txt", (err, data) => {
+        if (err) {
+          res.status(500);
+          res.json({ msg: "internal server error" });
+        } else {
+          fs.writeFile("./storage/homeContactInfo.txt", req.body.text, err => {
+            if (err) {
+              res.status(500);
+              res.json({ status: "failed", msg: "internal server error" });
+            } else {
+              res.json({ status: "success" });
+            }
+          });
+        }
+      });
+    } else {
+      res.status(400);
+      res.json({ status: "failed", msg: "invalid data" });
+    }
+  } else {
+    res.status(403);
+    res.json({ status: "failed", msg: "incorrect admin password" });
+  }
+});
+
 router.get("/home/imgs/extensions", (req, res) => {
   fs.readFile("./storage/homeImgExtensions.json", (err, data) => {
     if (err) {
