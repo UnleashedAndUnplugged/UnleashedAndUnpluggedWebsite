@@ -413,11 +413,11 @@ main {
   margin-bottom: 20px;
 }
 
-#admin-home-text-container h2, #admin-home-imgs-container1 h2 {
+#admin-home-text-container h2, #admin-home-contact-text-container h2, #admin-home-imgs-container1 h2 {
   color: #333133;
 }
 
-#admin-home-text {
+#admin-home-text, #admin-home-contact-text {
   font-size: 15px;
   padding: 5px;
   width: calc(100% - 15px);
@@ -427,13 +427,13 @@ main {
   resize: none;
 }
 
-#admin-home-text-options, #admin-home-imgs-options {
+#admin-home-text-options, #admin-home-contact-text-options, #admin-home-imgs-options {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-#admin-home-text-save, #admin-home-text-reset, #admin-home-imgs-save, #admin-home-imgs-reset {
+#admin-home-text-save, #admin-home-text-reset, #admin-home-contact-text-save, #admin-home-contact-text-reset, #admin-home-imgs-save, #admin-home-imgs-reset {
   margin: 0 10px;
 }
 

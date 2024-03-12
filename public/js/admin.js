@@ -300,6 +300,18 @@ fetch("/api/home/text")
     }
   });
 
+let homePageContactText;
+
+fetch("/api/home/contact/text")
+  .then(response => response.json())
+  .then(response => {
+    if (response.text) {
+      homePageContactText = response.text;
+      $("#admin-home-contact-text").val(homePageContactText);
+      $("#admin-home-contact-text").attr("disabled", false);
+    }
+  });
+
 // home page text save
 $("#admin-home-text-save").click(() => {
   const loadingAnimation = new LoadingAnimation($("#admin-home-text-save"));
@@ -336,9 +348,48 @@ $("#admin-home-text-save").click(() => {
   });
 });
 
+$("#admin-home-contact-text-save").click(() => {
+  const loadingAnimation = new LoadingAnimation($("#admin-home-contact-text-save"));
+  loadingAnimation.start();
+
+  $("#admin-home-contact-text-save").attr("disabled", true);
+  $("#admin-home-contact-text").attr("disabled", true);
+
+  fetch("/api/home/contact/text", {
+    method: "POST",
+    body: JSON.stringify({
+      password: adminPassword,
+      text: $("#admin-home-contact-text").val()
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(response => {
+    let headerMsg;
+
+    if (response.status === "success") {
+      headerMsg = new HeaderMessage("Home page contact info text updated successfully.", "green", 2);
+    } else {
+      headerMsg = new HeaderMessage("An error occurred when updating the home page contact info text.", "red", 2);
+    }
+
+    loadingAnimation.end();
+    $("#admin-home-contact-text-save").attr("disabled", false);
+    $("#admin-home-contact-text").attr("disabled", false);
+
+    headerMsg.display();
+  });
+});
+
 // home page text reset
 $("#admin-home-text-reset").click(() => {
   $("#admin-home-text").val(homePageText);
+});
+
+$("#admin-home-contact-text-reset").click(() => {
+  $("#admin-home-contact-text").val(homePageContactText);
 });
 
 // refresh home images
