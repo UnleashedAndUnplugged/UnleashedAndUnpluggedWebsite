@@ -115,3 +115,16 @@ $(document).ready(() => {
       }
     });
 });
+
+// section 4 text
+$(document).ready(() => {
+  fetch("/api/home/contact/text")
+    .then(response => response.json())
+    .then(response => {
+      if (response.text) {
+        $("#contact-body-text").html(response.text.replaceAll("\n", "<br>"));
+      } else {
+        console.log(response.msg);
+      }
+    });
+});
