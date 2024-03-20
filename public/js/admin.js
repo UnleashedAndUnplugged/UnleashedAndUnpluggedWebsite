@@ -4,11 +4,9 @@ let adminPassword;
 // update admin email recipients
 function updateEmailRecipients() {
   $("#admin-email-recipients").empty();
-
+  
   let checkboxes = $(".admin-email-list-select");
-  $("#admin-email-recipients").append(
-    $('<span class="admin-email-label">Recipients:</span>'),
-  );
+  $("#admin-email-recipients").append($("<span class=\"admin-email-label\">Recipients:</span>"));
 
   for (let checkbox of checkboxes) {
     checkbox = $(checkbox);
@@ -16,7 +14,7 @@ function updateEmailRecipients() {
     if (checkbox.is(":checked")) {
       let email = checkbox.parent().find(".admin-email-list-text").text();
 
-      let recipient = $('<div class="admin-email-recipient"></div>');
+      let recipient = $("<div class=\"admin-email-recipient\"></div>");
       recipient.text(email);
 
       $("#admin-email-recipients").append(recipient);
@@ -25,7 +23,7 @@ function updateEmailRecipients() {
 }
 
 // admin login
-$("#admin-login-form").submit((e) => {
+$("#admin-login-form").submit(e => {
   e.preventDefault();
 
   const loadingAnimation = new LoadingAnimation($("#admin-password-submit"));
@@ -38,51 +36,44 @@ $("#admin-login-form").submit((e) => {
     method: "POST",
     body: JSON.stringify({ password: adminPassword }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      loadingAnimation.end();
-      $("#admin-password-submit").attr("disabled", false);
+  .then(response => response.json())
+  .then(response => {
+    loadingAnimation.end();
+    $("#admin-password-submit").attr("disabled", false);
+    
+    if (response.status === "success") {
+      $("#admin-login-form").hide();
+      $("#admin-controls-container").show();
+      $("main").css("align-items", "flex-start");
 
-      if (response.status === "success") {
-        $("#admin-login-form").hide();
-        $("#admin-controls-container").show();
-        $("main").css("align-items", "flex-start");
-
-        setUpAdminPanel();
-      } else {
-        $("#admin-password-incorrect").show();
-      }
-    });
+      setUpAdminPanel();
+    } else {
+      $("#admin-password-incorrect").show();
+    }
+  });
 });
 
 // create email element
 function createEmailElement(text) {
-  let emailElement = $('<div class="admin-email-list-item"></div>').html(
-    $("#admin-email-list-template").html(),
-  );
+  let emailElement = $("<div class=\"admin-email-list-item\"></div>").html($("#admin-email-list-template").html());
   let checkbox = emailElement.find(".admin-email-list-select");
 
   // copy email when clicked
-  emailElement
-    .find(".admin-email-list-text")
+  emailElement.find(".admin-email-list-text")
     .text(text)
     .click(() => {
       navigator.clipboard.writeText(text);
 
-      let headerMsg = new HeaderMessage(
-        "Email copied to clipboard.",
-        "green",
-        2,
-      );
+      let headerMsg = new HeaderMessage("Email copied to clipboard.", "green", 2);
       headerMsg.display();
     });
 
-  emailElement.find(".admin-email-list-remove").click((e) => {
+  emailElement.find(".admin-email-list-remove").click(e => {
     const removeButton = $(e.target);
-
+    
     // loading animation
     const loadingAnimation = new LoadingAnimation(removeButton, 10, 2, "gray");
     loadingAnimation.start();
@@ -93,32 +84,28 @@ function createEmailElement(text) {
     // fetch request
     fetch("/api/admin/emails/remove", {
       method: "POST",
-      body: JSON.stringify({
+      body: JSON.stringify({ 
         password: adminPassword,
-        email: text,
+        email: text
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status === "success") {
-          // remove email from list
-          emailElement.remove();
-        } else {
-          // error
-          loadingAnimation.end();
-          removeButton.attr("disabled", false);
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        // remove email from list
+        emailElement.remove();
+      } else {
+        // error
+        loadingAnimation.end();
+        removeButton.attr("disabled", false);
 
-          const headerMsg = new HeaderMessage(
-            "An error occurred when attempting to remove the email.",
-            "red",
-            2,
-          );
-          headerMsg.display();
-        }
-      });
+        const headerMsg = new HeaderMessage("An error occurred when attempting to remove the email.", "red", 2);
+        headerMsg.display();
+      }
+    });
   });
 
   emailElement.find(".admin-email-list-select").click(updateEmailRecipients);
@@ -127,41 +114,36 @@ function createEmailElement(text) {
 }
 
 function setUpAdminPanel() {
-  const loadingAnimation = new LoadingAnimation(
-    $("#admin-email-list-loading-icon"),
-    20,
-    2,
-    "#3094ff",
-  );
+  const loadingAnimation = new LoadingAnimation($("#admin-email-list-loading-icon"), 20, 2, "#3094ff");
   loadingAnimation.start();
-
+  
   // get email list
   fetch("/api/admin/emails/list", {
     method: "POST",
     body: JSON.stringify({ password: adminPassword }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      loadingAnimation.end();
-      $("#admin-email-list-loading-container").hide();
+  .then(response => response.json())
+  .then(response => {
+    loadingAnimation.end();
+    $("#admin-email-list-loading-container").hide();
+    
+    if (response.status === "success") {
+      let emails = response.emails;
 
-      if (response.status === "success") {
-        let emails = response.emails;
-
-        for (let i = emails.length - 1; i >= 0; i--) {
-          let emailElement = createEmailElement(emails[i]);
-
-          $("#admin-email-list-emails").append(emailElement);
-        }
+      for (let i = emails.length - 1; i >= 0; i--) {
+        let emailElement = createEmailElement(emails[i]);
+        
+        $("#admin-email-list-emails").append(emailElement);
       }
-    });
+    }
+  });
 }
 
 // add email
-$("#add-email-form").submit((e) => {
+$("#add-email-form").submit(e => {
   e.preventDefault();
   $("#add-email-submit").attr("disabled", true);
 
@@ -172,45 +154,35 @@ $("#add-email-form").submit((e) => {
     method: "POST",
     body: JSON.stringify({ email: $("#add-email-input").val() }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      loadingAnimation.end();
-      $("#add-email-submit").attr("disabled", false);
+  .then(response => response.json())
+  .then(response => {
+    loadingAnimation.end();
+    $("#add-email-submit").attr("disabled", false);
+    
+    if (response.status === "success") {
+      // create email element
+      let emailElement = createEmailElement($("#add-email-input").val().toLowerCase());
 
-      if (response.status === "success") {
-        // create email element
-        let emailElement = createEmailElement(
-          $("#add-email-input").val().toLowerCase(),
-        );
+      $("#admin-email-list-emails").prepend(emailElement);
 
-        $("#admin-email-list-emails").prepend(emailElement);
+      // clear input value
+      $("#add-email-input").val(null);
+    } else {
+      let headerMsg;
 
-        // clear input value
+      if (response.msg === "duplicate email") {
+        headerMsg = new HeaderMessage("This email is already recorded.", "red", 2);
         $("#add-email-input").val(null);
       } else {
-        let headerMsg;
-
-        if (response.msg === "duplicate email") {
-          headerMsg = new HeaderMessage(
-            "This email is already recorded.",
-            "red",
-            2,
-          );
-          $("#add-email-input").val(null);
-        } else {
-          headerMsg = new HeaderMessage(
-            "An error occurred when attempting to add the email.",
-            "red",
-            2,
-          );
-        }
-
-        headerMsg.display();
+        headerMsg = new HeaderMessage("An error occurred when attempting to add the email.", "red", 2);
       }
-    });
+
+      headerMsg.display();
+    }
+  });
 });
 
 // select all
@@ -236,16 +208,9 @@ function sendEmail(recipient) {
   // prepare email
   let emailHTML = $("<div></div>");
   emailHTML.load("/public/components/email.html", () => {
-    emailHTML
-      .find("#email-body")
-      .html($("#admin-email-body").val().replaceAll("\n", "<br>"));
+    emailHTML.find("#email-body").html($("#admin-email-body").val().replaceAll("\n", "<br>"));
     emailHTML.find("#email-subject").text($("#admin-email-subject").val());
-    emailHTML
-      .find("#unsubscribe")
-      .attr(
-        "href",
-        `https://unleashedandunplugged.illusion705.repl.co/unsubscribe/${recipient}`,
-      );
+    emailHTML.find("#unsubscribe").attr("href", `https://unleashedandunplugged.illusion705.repl.co/unsubscribe/${recipient}`);
 
     fetch("/api/admin/email/send", {
       method: "POST",
@@ -253,61 +218,47 @@ function sendEmail(recipient) {
         password: adminPassword,
         recipients: [recipient],
         subject: $("#admin-email-subject").val(),
-        body: emailHTML.html(),
+        body: emailHTML.html()
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response) => {
-        let headerMsg;
+    .then(response => response.json())
+    .then(response => {
+      let headerMsg;
+      
+      if (response.status === "success") {
+        headerMsg = new HeaderMessage("Email successfully sent.", "green", 2);
+        $("#admin-email-subject").val(null);
+        $("#admin-email-body").val(null);
+        $("#admin-email-recipients").html("<span class=\"admin-email-label\">Recipients:</span>");
+        $(".admin-email-list-select").attr("checked", false);
+      } else {
+        headerMsg = new HeaderMessage("An error occurred when sending the email.", "red", 2);
+      }
 
-        if (response.status === "success") {
-          headerMsg = new HeaderMessage("Email successfully sent.", "green", 2);
-          $("#admin-email-subject").val(null);
-          $("#admin-email-body").val(null);
-          $("#admin-email-recipients").html(
-            '<span class="admin-email-label">Recipients:</span>',
-          );
-          $(".admin-email-list-select").attr("checked", false);
-        } else {
-          headerMsg = new HeaderMessage(
-            "An error occurred when sending the email.",
-            "red",
-            2,
-          );
-        }
+      loadingAnimation.end();
+      $("#admin-email-send").attr("disabled", false);
+      $("#admin-email-preview-container1").hide();
 
-        loadingAnimation.end();
-        $("#admin-email-send").attr("disabled", false);
-        $("#admin-email-preview-container1").hide();
-
-        headerMsg.display();
-      });
+      headerMsg.display();
+    });
   });
 }
 
 // show email preview click handler
-$("#admin-email-editor").submit((e) => {
+$("#admin-email-editor").submit(e => {
   e.preventDefault();
-
+  
   $("#admin-email-preview-container1").css("display", "flex");
 
-  const iframeDoc = $(
-    document.getElementById("admin-email-preview").contentDocument,
-  );
+  const iframeDoc = $(document.getElementById("admin-email-preview").contentDocument);
   iframeDoc.find("#email-subject").html($("#admin-email-subject").val());
-  iframeDoc
-    .find("#email-body")
-    .html($("#admin-email-body").val().replaceAll("\n", "<br>"));
+  iframeDoc.find("#email-body").html($("#admin-email-body").val().replaceAll("\n", "<br>"));
 
   iframeDoc.find("#unsubscribe").click(() => {
-    let headerMessage = new HeaderMessage(
-      "The unsubscribe button cannot be tested during email preview.",
-      "red",
-      2,
-    );
+    let headerMessage = new HeaderMessage("The unsubscribe button cannot be tested during email preview.", "red", 2);
     headerMessage.display();
   });
 });
@@ -340,8 +291,8 @@ $("#admin-email-preview-hide").click(() => {
 let homePageText;
 
 fetch("/api/home/text")
-  .then((response) => response.json())
-  .then((response) => {
+  .then(response => response.json())
+  .then(response => {
     if (response.text) {
       homePageText = response.text;
       $("#admin-home-text").val(homePageText);
@@ -373,36 +324,28 @@ $("#admin-home-text-save").click(() => {
     method: "POST",
     body: JSON.stringify({
       password: adminPassword,
-      text: $("#admin-home-text").val(),
+      text: $("#admin-home-text").val()
     }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      let headerMsg;
+  .then(response => response.json())
+  .then(response => {
+    let headerMsg;
+      
+    if (response.status === "success") {
+      headerMsg = new HeaderMessage("Home page text updated successfully.", "green", 2);
+    } else {
+      headerMsg = new HeaderMessage("An error occurred when updating the home page text.", "red", 2);
+    }
 
-      if (response.status === "success") {
-        headerMsg = new HeaderMessage(
-          "Home page text updated successfully.",
-          "green",
-          2,
-        );
-      } else {
-        headerMsg = new HeaderMessage(
-          "An error occurred when updating the home page text.",
-          "red",
-          2,
-        );
-      }
+    loadingAnimation.end();
+    $("#admin-home-text-save").attr("disabled", false);
+    $("#admin-home-text").attr("disabled", false);
 
-      loadingAnimation.end();
-      $("#admin-home-text-save").attr("disabled", false);
-      $("#admin-home-text").attr("disabled", false);
-
-      headerMsg.display();
-    });
+    headerMsg.display();
+  });
 });
 
 $("#admin-home-contact-text-save").click(() => {
@@ -452,18 +395,14 @@ $("#admin-home-contact-text-reset").click(() => {
 // refresh home images
 function refreshHomeImages() {
   fetch("/api/home/imgs/extensions")
-    .then((response) => response.json())
-    .then((response) => {
+    .then(response => response.json())
+    .then(response => {
       let imgs = $(".admin-home-img");
-
+      
       for (let img of imgs) {
         img = $(img);
         let num = parseInt(img.attr("id").substring(14));
-        img.attr(
-          "src",
-          `/public/images/home/home${num}.${response.data[num - 1]}` +
-            `?${new Date().getTime()}`,
-        );
+        img.attr("src", `/public/images/home/home${num}.${response.data[num - 1]}` + `?${new Date().getTime()}`);
       }
     });
 }
@@ -471,14 +410,11 @@ function refreshHomeImages() {
 refreshHomeImages();
 
 // home page image change
-$(".admin-home-img-upload").change((e) => {
+$(".admin-home-img-upload").change(e => {
   if (e.target.files && e.target.files[0]) {
     let element = $(e.target);
     let num = element.attr("id").substring(21);
-    $("#admin-home-img" + num).attr(
-      "src",
-      URL.createObjectURL(e.target.files[0]),
-    );
+    $("#admin-home-img" + num).attr("src", URL.createObjectURL(e.target.files[0]));
   }
 });
 
@@ -503,7 +439,7 @@ $("#admin-home-imgs-save").click(() => {
 
       const fetchRequest = fetch("/api/home/imgs", {
         method: "POST",
-        body: data,
+        body: data
       });
 
       promises.push(fetchRequest);
@@ -511,10 +447,10 @@ $("#admin-home-imgs-save").click(() => {
   }
 
   Promise.all(promises)
-    .then((responses) => {
-      return Promise.all(responses.map((res) => res.json()));
+    .then(responses => {
+      return Promise.all(responses.map(res => res.json()));
     })
-    .then((responses) => {
+    .then(responses => {
       let successes = 0;
 
       for (let response of responses) {
@@ -526,17 +462,9 @@ $("#admin-home-imgs-save").click(() => {
       let headerMsg;
 
       if (successes === responses.length) {
-        headerMsg = new HeaderMessage(
-          "Home page images updated successfully.",
-          "green",
-          2,
-        );
+        headerMsg = new HeaderMessage("Home page images updated successfully.", "green", 2);
       } else {
-        headerMsg = new HeaderMessage(
-          "An error occurred when updating the home page images.",
-          "red",
-          2,
-        );
+        headerMsg = new HeaderMessage("An error occurred when updating the home page images.", "red", 2);
       }
 
       headerMsg.display();
@@ -551,7 +479,7 @@ let galleryImgs = [];
 
 $("#admin-gallery-new-entry-img-upload").unbind("change");
 
-$("#admin-gallery-new-entry-img-upload").change((e) => {
+$("#admin-gallery-new-entry-img-upload").change(e => {
   if (e.target.files && e.target.files[0]) {
     // clear initial message
     $("#admin-gallery-new-entry-imgs1 > h1").hide();
@@ -561,9 +489,7 @@ $("#admin-gallery-new-entry-img-upload").change((e) => {
     for (let file of e.target.files) {
       galleryImgs.push(file);
 
-      let containerElement = $(
-        '<div class="admin-gallery-new-entry-img-container"></div>',
-      );
+      let containerElement = $("<div class=\"admin-gallery-new-entry-img-container\"></div>");
       containerElement.html($("#admin-gallery-new-entry-img-template").html());
       containerElement
         .find(".admin-gallery-new-entry-img")
@@ -571,10 +497,7 @@ $("#admin-gallery-new-entry-img-upload").change((e) => {
 
       containerElement
         .find(".admin-gallery-new-entry-img-delete")
-        .attr(
-          "id",
-          "admin-gallery-new-entry-img-delete" + (galleryImgs.length - 1),
-        );
+        .attr("id", "admin-gallery-new-entry-img-delete" + (galleryImgs.length - 1));
 
       $("#admin-gallery-new-entry-imgs2").append(containerElement);
     }
@@ -587,13 +510,13 @@ $("#admin-gallery-new-entry-img-upload").change((e) => {
 });
 
 // gallery page new entry delete image
-function updateGalleryDeleteBtns() {
-  $(".admin-gallery-new-entry-img-delete").click((e) => {
+function updateGalleryDeleteBtns() {  
+  $(".admin-gallery-new-entry-img-delete").click(e => {
     let element = $(e.target);
     let id = parseInt(element.attr("id").substring(34));
-
+  
     galleryImgs.splice(id, 1);
-
+  
     element.parent().parent().remove();
 
     if (galleryImgs.length === 0) {
@@ -619,12 +542,10 @@ $("#admin-gallery-new-entry-reset").click(() => {
 });
 
 // gallery page new entry save
-$("#admin-gallery-new-entry").submit((e) => {
+$("#admin-gallery-new-entry").submit(e => {
   e.preventDefault();
 
-  const loadingAnimation = new LoadingAnimation(
-    $("#admin-gallery-new-entry-submit"),
-  );
+  const loadingAnimation = new LoadingAnimation($("#admin-gallery-new-entry-submit"));
   loadingAnimation.start();
   $("#admin-gallery-new-entry-submit").attr("disabled", true);
 
@@ -633,99 +554,84 @@ $("#admin-gallery-new-entry").submit((e) => {
     method: "POST",
     body: JSON.stringify({
       password: adminPassword,
-      name: $("#admin-gallery-new-entry-title").val(),
+      name: $("#admin-gallery-new-entry-title").val()
     }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.status === "success") {
-        // upload imgs
-        let promises = [];
+  .then(response => response.json())
+  .then(response => {
+    if (response.status === "success") {
+      // upload imgs
+      let promises = [];
+      
+      for (let galleryImg of galleryImgs) {
+        let data = new FormData();
+        data.append("password", adminPassword);
+        data.append("id", response.data.id);
+        data.append("file", galleryImg);
+        
+        let fetchRequest = fetch("/api/gallery/image/upload", {
+          method: "POST",
+          body: data
+        });
 
-        for (let galleryImg of galleryImgs) {
-          let data = new FormData();
-          data.append("password", adminPassword);
-          data.append("id", response.data.id);
-          data.append("file", galleryImg);
-
-          let fetchRequest = fetch("/api/gallery/image/upload", {
-            method: "POST",
-            body: data,
-          });
-
-          promises.push(fetchRequest);
-        }
-
-        Promise.all(promises)
-          .then((responses) => {
-            return Promise.all(responses.map((res) => res.json()));
-          })
-          .then((responses) => {
-            let successes = 0;
-
-            for (let response of responses) {
-              if (response.status === "success") {
-                successes++;
-              }
-            }
-
-            let headerMsg;
-
-            if (successes === responses.length) {
-              headerMsg = new HeaderMessage(
-                "Gallery entry saved successfully.",
-                "green",
-                2,
-              );
-
-              // add entry to entries list
-              fetch("/api/gallery/data")
-                .then((response2) => response2.json())
-                .then((data) => {
-                  createGalleryEntry(
-                    data.filter((datum) => datum.id === response.data.id)[0],
-                    true,
-                  );
-                });
-
-              // clear form
-              $("#admin-gallery-new-entry-title").val(null);
-              $("#admin-gallery-new-entry-imgs2").html(null);
-              $("#admin-gallery-new-entry-imgs2").css("display", "none");
-              $("#admin-gallery-new-entry-imgs1 > h1").show();
-              galleryImgs = [];
-            } else {
-              headerMsg = new HeaderMessage(
-                "An error occurred while saving new gallery entry.",
-                "red",
-                2,
-              );
-            }
-
-            headerMsg.display();
-
-            loadingAnimation.end();
-            $("#admin-gallery-new-entry-submit").attr("disabled", false);
-          });
-      } else {
-        let headerMsg = new HeaderMessage(
-          "An error occurred while saving new gallery entry.",
-          "red",
-          2,
-        );
-        headerMsg.display();
-        loadingAnimation.end();
-        $("#admin-gallery-new-entry-submit").attr("disabled", false);
+        promises.push(fetchRequest);
       }
-    });
+
+      Promise.all(promises)
+        .then(responses => {
+          return Promise.all(responses.map(res => res.json()));
+        })
+        .then(responses => {
+          let successes = 0;
+    
+          for (let response of responses) {
+            if (response.status === "success") {
+              successes++;
+            }
+          }
+    
+          let headerMsg;
+    
+          if (successes === responses.length) {
+            headerMsg = new HeaderMessage("Gallery entry saved successfully.", "green", 2);
+
+            // add entry to entries list
+            fetch("/api/gallery/data")
+              .then(response2 => response2.json())
+              .then(data => {
+                createGalleryEntry(data.filter(datum => datum.id === response.data.id)[0], true);
+              });
+
+            // clear form
+            $("#admin-gallery-new-entry-title").val(null);
+            $("#admin-gallery-new-entry-imgs2").html(null);
+            $("#admin-gallery-new-entry-imgs2").css("display", "none");
+            $("#admin-gallery-new-entry-imgs1 > h1").show();
+            galleryImgs = [];
+          } else {
+            headerMsg = new HeaderMessage("An error occurred while saving new gallery entry.", "red", 2);
+          }
+    
+          headerMsg.display();
+    
+          loadingAnimation.end();
+          $("#admin-gallery-new-entry-submit").attr("disabled", false);
+        });
+    } else {
+      let headerMsg = new HeaderMessage("An error occurred while saving new gallery entry.", "red", 2);
+      headerMsg.display();
+      loadingAnimation.end();
+      $("#admin-gallery-new-entry-submit").attr("disabled", false);
+    }
+  });
 });
 
 // gallery page load entries
 function createGalleryEntryImg(element, deletedLog, addedLog, img, file) {
-  let imgElement = $('<div class="admin-gallery-entry-img-container"></div>');
+  let imgElement = $("<div class=\"admin-gallery-entry-img-container\"></div>");
   imgElement.html($("#admin-gallery-entry-img-template").html());
 
   // set src
@@ -740,24 +646,28 @@ function createGalleryEntryImg(element, deletedLog, addedLog, img, file) {
   }
 
   // delete img functionality
-  imgElement.find(".admin-gallery-entry-img-delete").click(() => {
-    imgElement.remove();
+  imgElement
+    .find(".admin-gallery-entry-img-delete")
+    .click(() => {
+      imgElement.remove();
 
-    if (deletedLog) {
-      deletedLog.push(img);
-    }
+      if (deletedLog) {
+        deletedLog.push(img);
+      }
 
-    if (addedLog) {
-      addedLog.splice(addedLog.indexOf(file), 1);
-    }
-  });
+      if (addedLog) {
+        addedLog.splice(addedLog.indexOf(file), 1);
+      }
+    });
 
   // append img element
-  element.find(".admin-gallery-entry-images2").append(imgElement);
+  element
+    .find(".admin-gallery-entry-images2")
+    .append(imgElement);
 }
 
 function createGalleryEntry(data, first = false) {
-  let element = $('<div class="admin-gallery-entry-container"></div>');
+  let element = $("<div class=\"admin-gallery-entry-container\"></div>");
   element.html($("#admin-gallery-entry-template").html());
 
   // update log
@@ -765,12 +675,12 @@ function createGalleryEntry(data, first = false) {
   let added = [];
 
   // load name
-  let nameElement = element.find(".admin-gallery-entry-name");
+  let nameElement = element.find(".admin-gallery-entry-name")
   nameElement.val(data.name);
 
   // edit name functionality
   let nameEditElement = element.find(".admin-gallery-entry-name-edit");
-
+  
   nameEditElement.click(() => {
     if (nameElement.attr("disabled")) {
       nameElement.attr("disabled", false);
@@ -783,12 +693,15 @@ function createGalleryEntry(data, first = false) {
 
   // add img functionality
   const imgUploadElement = element.find(".admin-gallery-entry-img-upload");
+  
+  element
+    .find(".admin-gallery-entry-add-img")
+    .click(() => {
+      imgUploadElement.trigger("click");
+    });
 
-  element.find(".admin-gallery-entry-add-img").click(() => {
-    imgUploadElement.trigger("click");
-  });
-
-  imgUploadElement.change((e) => {
+  
+  imgUploadElement.change(e => {
     if (e.target.files && e.target.files[0]) {
       for (let file of e.target.files) {
         added.push(file);
@@ -809,12 +722,10 @@ function createGalleryEntry(data, first = false) {
     added = [];
 
     fetch("/api/gallery/data")
-      .then((response) => response.json())
-      .then((galleryEntryData) => {
-        galleryEntryData = galleryEntryData.filter(
-          (datum) => datum.id === data.id,
-        )[0];
-
+      .then(response => response.json())
+      .then(galleryEntryData => {
+        galleryEntryData = galleryEntryData.filter(datum => datum.id === data.id)[0];
+        
         nameElement.val(galleryEntryData.name);
 
         const imagesContainer = element.find(".admin-gallery-entry-images2");
@@ -830,7 +741,7 @@ function createGalleryEntry(data, first = false) {
 
   // delete entry functionality
   let entryDeleteBtn = element.find(".admin-gallery-entry-delete");
-
+  
   entryDeleteBtn.click(() => {
     function deleteReset() {
       if (entryDeleteBtn.text() === "Confirm") {
@@ -839,7 +750,7 @@ function createGalleryEntry(data, first = false) {
 
       $(document).unbind("click", deleteReset);
     }
-
+    
     if (entryDeleteBtn.text() === "Confirm") {
       // delete gallery entry
       const loadingAnimation = new LoadingAnimation(entryDeleteBtn);
@@ -849,34 +760,26 @@ function createGalleryEntry(data, first = false) {
         method: "POST",
         body: JSON.stringify({
           password: adminPassword,
-          id: data.id,
+          id: data.id
         }),
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       })
-        .then((response) => response.json())
-        .then((response) => {
-          let headerMsg;
+      .then(response => response.json())
+      .then(response => {
+        let headerMsg;
 
-          if (response.status === "success") {
-            headerMsg = new HeaderMessage(
-              "Gallery entry deleted successfully.",
-              "green",
-              2,
-            );
+        if (response.status === "success") {
+          headerMsg = new HeaderMessage("Gallery entry deleted successfully.", "green", 2);
 
-            element.remove();
-          } else {
-            headerMsg = new HeaderMessage(
-              "An error occurred while deleting the gallery entry.",
-              "red",
-              2,
-            );
-          }
+          element.remove();
+        } else {
+          headerMsg = new HeaderMessage("An error occurred while deleting the gallery entry.", "red", 2);
+        }
 
-          headerMsg.display();
-        });
+        headerMsg.display();
+      });
     } else {
       entryDeleteBtn.text("Confirm");
 
@@ -893,125 +796,109 @@ function createGalleryEntry(data, first = false) {
     const loadingAnimation = new LoadingAnimation(saveGalleryEntry);
     loadingAnimation.start();
     saveGalleryEntry.attr("disabled", true);
-
+    
     // edit name
     fetch("/api/gallery/entry/name", {
       method: "POST",
       body: JSON.stringify({
         password: adminPassword,
         id: data.id,
-        name: nameElement.val(),
+        name: nameElement.val()
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status === "success") {
-          let promises1 = [];
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        let promises1 = [];
 
-          for (let deletedFile of deleted) {
-            let request = fetch("/api/gallery/image/delete", {
-              method: "POST",
-              body: JSON.stringify({
-                password: adminPassword,
-                id: data.id,
-                imgName: deletedFile,
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
+        for (let deletedFile of deleted) {
+          let request = fetch("/api/gallery/image/delete", {
+            method: "POST",
+            body: JSON.stringify({
+              password: adminPassword,
+              id: data.id,
+              imgName: deletedFile
+            }),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
 
-            promises1.push(request);
-          }
-
-          Promise.all(promises1)
-            .then((responses) => {
-              return Promise.all(responses.map((res) => res.json()));
-            })
-            .then((responses) => {
-              let successes = 0;
-
-              for (let response of responses) {
-                if (response.status === "success") {
-                  successes++;
-                }
-              }
-
-              if (successes === responses.length) {
-                let promises2 = [];
-
-                for (let addedFile of added) {
-                  let formData = new FormData();
-                  formData.append("password", adminPassword);
-                  formData.append("id", data.id);
-                  formData.append("file", addedFile);
-
-                  let request = fetch("/api/gallery/image/upload", {
-                    method: "POST",
-                    body: formData,
-                  });
-
-                  promises2.push(request);
-                }
-
-                Promise.all(promises2)
-                  .then((responses) => {
-                    return Promise.all(responses.map((res) => res.json()));
-                  })
-                  .then((responses) => {
-                    let successes = 0;
-
-                    for (let response of responses) {
-                      if (response.status === "success") {
-                        successes++;
-                      }
-                    }
-
-                    if (successes === responses.length) {
-                      let headerMsg = new HeaderMessage(
-                        "Gallery entry updated successfully.",
-                        "green",
-                        2,
-                      );
-                      headerMsg.display();
-                      loadingAnimation.end();
-                      saveGalleryEntry.attr("disabled", false);
-                    } else {
-                      let headerMsg = new HeaderMessage(
-                        "An error occurred while updating the gallery entry.",
-                        "red",
-                        2,
-                      );
-                      headerMsg.display();
-                      loadingAnimation.end();
-                      saveGalleryEntry.attr("disabled", false);
-                    }
-                  });
-              } else {
-                let headerMsg = new HeaderMessage(
-                  "An error occurred while updating the gallery entry.",
-                  "red",
-                  2,
-                );
-                headerMsg.display();
-                loadingAnimation.end();
-                saveGalleryEntry.attr("disabled", false);
-              }
-            });
-        } else {
-          let headerMsg = new HeaderMessage(
-            "An error occurred while updating the gallery entry.",
-            "red",
-            2,
-          );
-          headerMsg.display();
-          loadingAnimation.end();
-          saveGalleryEntry.attr("disabled", false);
+          promises1.push(request);
         }
-      });
+
+        Promise.all(promises1)
+          .then(responses => {
+            return Promise.all(responses.map(res => res.json()));
+          })
+          .then(responses => {
+            let successes = 0;
+      
+            for (let response of responses) {
+              if (response.status === "success") {
+                successes++;
+              }
+            }
+      
+            if (successes === responses.length) {
+              let promises2 = []
+
+              for (let addedFile of added) {
+                let formData = new FormData();
+                formData.append("password", adminPassword);
+                formData.append("id", data.id);
+                formData.append("file", addedFile);
+
+                let request = fetch("/api/gallery/image/upload", {
+                  method: "POST",
+                  body: formData
+                });
+
+                promises2.push(request)
+              }
+
+              Promise.all(promises2)
+                .then(responses => {
+                  return Promise.all(responses.map(res => res.json()));
+                })
+                .then(responses => {
+                  let successes = 0;
+            
+                  for (let response of responses) {
+                    if (response.status === "success") {
+                      successes++;
+                    }
+                  }
+            
+                  if (successes === responses.length) {
+                    let headerMsg = new HeaderMessage("Gallery entry updated successfully.", "green", 2);
+                    headerMsg.display()
+                    loadingAnimation.end();
+                    saveGalleryEntry.attr("disabled", false);
+                  } else {
+                    let headerMsg = new HeaderMessage("An error occurred while updating the gallery entry.", "red", 2);
+                    headerMsg.display()
+                    loadingAnimation.end();
+                    saveGalleryEntry.attr("disabled", false);
+                  }
+                });
+            } else {
+              let headerMsg = new HeaderMessage("An error occurred while updating the gallery entry.", "red", 2);
+              headerMsg.display()
+              loadingAnimation.end();
+              saveGalleryEntry.attr("disabled", false);
+            }
+          });
+      } else {
+        let headerMsg = new HeaderMessage("An error occurred while updating the gallery entry.", "red", 2);
+        headerMsg.display()
+        loadingAnimation.end();
+        saveGalleryEntry.attr("disabled", false);
+      }
+    });
   });
 
   // load imgs
@@ -1027,8 +914,8 @@ function createGalleryEntry(data, first = false) {
 }
 
 fetch("/api/gallery/data")
-  .then((response) => response.json())
-  .then((data) => {
+  .then(response => response.json())
+  .then(data => {
     for (let i = data.length - 1; i >= 0; i--) {
       createGalleryEntry(data[i]);
     }
@@ -1040,27 +927,21 @@ let generalPagesText = {};
 let generalPagesExtensions;
 
 function setGeneralPagesImages() {
-  $("#admin-house-rules-img").attr(
-    "src",
-    "/public/images/houseRules/houseRules." + generalPagesExtensions.houseRules,
-  );
-  $("#admin-artists-img").attr(
-    "src",
-    "/public/images/artists/artists." + generalPagesExtensions.artists,
-  );
+  $("#admin-house-rules-img").attr("src", "/public/images/houseRules/houseRules." + generalPagesExtensions.houseRules);
+  $("#admin-artists-img").attr("src", "/public/images/artists/artists." + generalPagesExtensions.artists);
 }
 
 fetch("/api/general-page/extensions")
-  .then((response) => response.json())
-  .then((data) => {
+  .then(response => response.json())
+  .then(data => {
     generalPagesExtensions = data.data;
     setGeneralPagesImages();
   });
 
 for (let page of generalPages) {
   fetch(`/api/general-page/${page}/text`)
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       if (page === "houseRules") {
         generalPagesText.houseRules = data.data.replaceAll("<br>", "\n");
         $("#admin-house-rules-text").val(generalPagesText.houseRules);
@@ -1072,7 +953,7 @@ for (let page of generalPages) {
 }
 
 // reset text of general page
-$(".admin-general-page-text-reset").click((e) => {
+$(".admin-general-page-text-reset").click(e => {
   switch ($(e.target).data("page")) {
     case "houseRules":
       $("#admin-house-rules-text").val(generalPagesText.houseRules);
@@ -1084,10 +965,10 @@ $(".admin-general-page-text-reset").click((e) => {
 });
 
 // save text of general page
-$(".admin-general-page-text-save").click((e) => {
+$(".admin-general-page-text-save").click(e => {
   generalPagesText.houseRules = $("#admin-house-rules-text").val();
   generalPagesText.artists = $("#admin-artists-text").val();
-
+  
   let page = $(e.target).data("page");
   let text = generalPagesText[page];
   let loadingAnimation = new LoadingAnimation($(e.target));
@@ -1099,64 +980,46 @@ $(".admin-general-page-text-save").click((e) => {
     body: JSON.stringify({
       password: adminPassword,
       page: page,
-      text: text.replaceAll("\n", "<br>"),
+      text: text.replaceAll("\n", "<br>")
     }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.status === "success") {
-        let headerMsg = new HeaderMessage(
-          "Page text updated successfully.",
-          "green",
-          2,
-        );
-        headerMsg.display();
-        loadingAnimation.end();
-        $(e.target).attr("disabled", false);
-      } else {
-        let headerMsg = new HeaderMessage(
-          "An error occurred while updating the page text.",
-          "red",
-          2,
-        );
-        headerMsg.display();
-        loadingAnimation.end();
-        $(e.target).attr("disabled", false);
-      }
-    });
+  .then(response => response.json())
+  .then(response => {
+    if (response.status === "success") {
+      let headerMsg = new HeaderMessage("Page text updated successfully.", "green", 2);
+      headerMsg.display()
+      loadingAnimation.end();
+      $(e.target).attr("disabled", false);
+    } else {
+      let headerMsg = new HeaderMessage("An error occurred while updating the page text.", "red", 2);
+      headerMsg.display()
+      loadingAnimation.end();
+      $(e.target).attr("disabled", false);
+    }
+  })
 });
 
 // reset image of general page
-$(".admin-general-page-img-reset").click((e) => {
+$(".admin-general-page-img-reset").click(e => {
   switch ($(e.target).data("page")) {
     case "houseRules":
-      $("#admin-house-rules-img").attr(
-        "src",
-        "/public/images/houseRules/houseRules." +
-          generalPagesExtensions.houseRules +
-          `?${new Date().getTime()}`,
-      );
+      $("#admin-house-rules-img").attr("src", "/public/images/houseRules/houseRules." + generalPagesExtensions.houseRules + `?${new Date().getTime()}`);
       break;
     case "artists":
-      $("#admin-artists-img").attr(
-        "src",
-        "/public/images/artists/artists." +
-          generalPagesExtensions.artists +
-          `?${new Date().getTime()}`,
-      );
+      $("#admin-artists-img").attr("src", "/public/images/artists/artists." + generalPagesExtensions.artists + `?${new Date().getTime()}`);
       break;
   }
 });
 
 // upload image of general page
-$(".admin-general-page-img-upload").change((e) => {
+$(".admin-general-page-img-upload").change(e => {
   if (e.target.files && e.target.files[0]) {
     let page = $(e.target).data("page");
     let imgElement;
-
+  
     switch (page) {
       case "houseRules":
         imgElement = $("#admin-house-rules-img");
@@ -1165,15 +1028,15 @@ $(".admin-general-page-img-upload").change((e) => {
         imgElement = $("#admin-artists-img");
         break;
     }
-
+    
     imgElement.attr("src", URL.createObjectURL(e.target.files[0]));
   }
 });
 
 // save image of general page
-$(".admin-general-page-img-save").click((e) => {
+$(".admin-general-page-img-save").click(e => {
   let page = $(e.target).data("page");
-
+  
   let loadingAnimation = new LoadingAnimation($(e.target));
   loadingAnimation.start();
   $(e.target).attr("disabled", true);
@@ -1193,39 +1056,28 @@ $(".admin-general-page-img-save").click((e) => {
 
   fetch("/api/general-page/img", {
     method: "POST",
-    body: data,
+    body: data
   })
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.status === "success") {
-        let headerMsg = new HeaderMessage(
-          "Page image updated successfully.",
-          "green",
-          2,
-        );
-        headerMsg.display();
-        loadingAnimation.end();
-        $(e.target).attr("disabled", false);
-      } else {
-        let headerMsg = new HeaderMessage(
-          "An error occurred while updating the page image.",
-          "red",
-          2,
-        );
-        headerMsg.display();
-        loadingAnimation.end();
-        $(e.target).attr("disabled", false);
-      }
-    });
+  .then(response => response.json())
+  .then(response => {
+    if (response.status === "success") {
+      let headerMsg = new HeaderMessage("Page image updated successfully.", "green", 2);
+      headerMsg.display();
+      loadingAnimation.end();
+      $(e.target).attr("disabled", false);
+    } else {
+      let headerMsg = new HeaderMessage("An error occurred while updating the page image.", "red", 2);
+      headerMsg.display();
+      loadingAnimation.end();
+      $(e.target).attr("disabled", false);
+    }
+  });
 });
 
 // add image to new concert entry
-$("#admin-shows-new-entry-img-upload").change((e) => {
+$("#admin-shows-new-entry-img-upload").change(e => {
   if (e.target.files && e.target.files[0]) {
-    $("#admin-shows-new-entry-img").attr(
-      "src",
-      URL.createObjectURL(e.target.files[0]),
-    );
+    $("#admin-shows-new-entry-img").attr("src", URL.createObjectURL(e.target.files[0]));
     $("#admin-shows-new-entry-img").show();
     $("#admin-shows-new-entry-img-placeholder").hide();
   }
@@ -1233,7 +1085,9 @@ $("#admin-shows-new-entry-img-upload").change((e) => {
 
 // reset new show entry
 function resetNewShowEntry() {
-  $("#admin-shows-new-entry-img").attr("src", null).hide();
+  $("#admin-shows-new-entry-img")
+    .attr("src", null)
+    .hide();
 
   $("#admin-shows-new-entry-img-placeholder").show();
 
@@ -1246,12 +1100,10 @@ function resetNewShowEntry() {
 $("#admin-shows-new-entry-reset").click(resetNewShowEntry);
 
 // submit new show entry
-$("#admin-shows-new-entry").submit((e) => {
+$("#admin-shows-new-entry").submit(e => {
   e.preventDefault();
 
-  const loadingAnimation = new LoadingAnimation(
-    $("#admin-shows-new-entry-submit"),
-  );
+  const loadingAnimation = new LoadingAnimation($("#admin-shows-new-entry-submit"));
   loadingAnimation.start();
   $("#admin-shows-new-entry-submit").attr("disabled", true);
   $("#admin-shows-new-entry-reset").attr("disabled", true);
@@ -1266,32 +1118,24 @@ $("#admin-shows-new-entry").submit((e) => {
 
   fetch("/api/shows/new", {
     method: "POST",
-    body: data,
+    body: data
   })
-    .then((response) => response.json())
-    .then((response) => {
-      loadingAnimation.end();
-      $("#admin-shows-new-entry-submit").attr("disabled", false);
-      $("#admin-shows-new-entry-reset").attr("disabled", false);
+  .then(response => response.json())
+  .then(response => {
+    loadingAnimation.end();
+    $("#admin-shows-new-entry-submit").attr("disabled", false);
+    $("#admin-shows-new-entry-reset").attr("disabled", false);
 
-      if (response.status === "success") {
-        const headerMsg = new HeaderMessage(
-          "Show entry uploaded successfully.",
-          "green",
-          2,
-        );
-        headerMsg.display();
-        resetNewShowEntry();
-        createShowEntry(response.data.showData);
-      } else {
-        const headerMsg = new HeaderMessage(
-          "An error occurred when uploading the new show entry.",
-          "red",
-          2,
-        );
-        headerMsg.display();
-      }
-    });
+    if (response.status === "success") {
+      const headerMsg = new HeaderMessage("Show entry uploaded successfully.", "green", 2);
+      headerMsg.display();
+      resetNewShowEntry();
+      createShowEntry(response.data.showData);
+    } else {
+      const headerMsg = new HeaderMessage("An error occurred when uploading the new show entry.", "red", 2);
+      headerMsg.display();
+    }
+  });
 });
 
 // get current show entries
@@ -1315,20 +1159,17 @@ function createShowEntry(datum) {
   }
   setInfo();
 
-  div
-    .find(".admin-shows-entry-img-upload-label")
-    .attr("for", "admin-shows-entry-img-upload" + datum.id);
+  div.find(".admin-shows-entry-img-upload-label").attr("for", "admin-shows-entry-img-upload" + datum.id);
 
-  div
-    .find(".admin-shows-entry-img-upload")
+  div.find(".admin-shows-entry-img-upload")
     .attr("id", "admin-shows-entry-img-upload" + datum.id)
-    .on("change", (e) => {
+    .on("change", e => {
       imgElement.attr("src", URL.createObjectURL(e.target.files[0]));
     });
 
   div.find(".admin-shows-entry-reset").click(setInfo);
 
-  div.find(".admin-shows-entry-save").click((e) => {
+  div.find(".admin-shows-entry-save").click(e => {
     const loadingAnimation = new LoadingAnimation($(e.target));
     loadingAnimation.start();
 
@@ -1340,76 +1181,60 @@ function createShowEntry(datum) {
         name: nameElement.val(),
         date: dateElement.val(),
         time: timeElement.val(),
-        description: descriptionElement.val(),
+        description: descriptionElement.val()
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response1) => {
-        if (response1.status === "success") {
-          datum.name = nameElement.val();
-          datum.date = dateElement.val();
-          datum.time = timeElement.val();
-          datum.description = descriptionElement.val();
+    .then(response => response.json())
+    .then(response1 => {
+      if (response1.status === "success") {
+        datum.name = nameElement.val();
+        datum.date = dateElement.val();
+        datum.time = timeElement.val();
+        datum.description = descriptionElement.val();
 
-          if (imgUploadElement.get(0).files.length > 0) {
-            let formData = new FormData();
-            formData.append("password", adminPassword);
-            formData.append("id", datum.id);
-            formData.append("file", imgUploadElement.get(0).files[0]);
+        if (imgUploadElement.get(0).files.length > 0) {
+          let formData = new FormData();
+          formData.append("password", adminPassword);
+          formData.append("id", datum.id);
+          formData.append("file", imgUploadElement.get(0).files[0]);
 
-            fetch("/api/shows/update-img", {
-              method: "post",
-              body: formData,
-            })
-              .then((response) => response.json())
-              .then((response2) => {
-                if (response2.status === "success") {
-                  datum.img = response2.data.imgName;
+          fetch("/api/shows/update-img", {
+            method: "post",
+            body: formData,
+          })
+          .then(response => response.json())
+          .then(response2 => {
+            if (response2.status === "success") {
+              datum.img = response2.data.imgName;
 
-                  const headerMsg = new HeaderMessage(
-                    "Show entry updated successfully.",
-                    "green",
-                    2,
-                  );
-                  headerMsg.display();
-                } else {
-                  const headerMsg = new HeaderMessage(
-                    "An error occurred when updating the show entry.",
-                    "red",
-                    2,
-                  );
-                  headerMsg.display();
-                }
-
-                loadingAnimation.end();
-              });
-          } else {
-            const headerMsg = new HeaderMessage(
-              "Show entry updated successfully.",
-              "green",
-              2,
-            );
-            headerMsg.display();
+              const headerMsg = new HeaderMessage("Show entry updated successfully.", "green", 2);
+              headerMsg.display();
+            } else {
+              const headerMsg = new HeaderMessage("An error occurred when updating the show entry.", "red", 2);
+              headerMsg.display();
+            }
 
             loadingAnimation.end();
-          }
+          });
         } else {
-          const headerMsg = new HeaderMessage(
-            "An error occurred when updating the show entry.",
-            "red",
-            2,
-          );
+          const headerMsg = new HeaderMessage("Show entry updated successfully.", "green", 2);
           headerMsg.display();
 
           loadingAnimation.end();
         }
-      });
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when updating the show entry.", "red", 2);
+        headerMsg.display();
+
+        loadingAnimation.end();
+      }
+    });
   });
 
-  div.find(".admin-shows-entry-delete").click((e) => {
+  div.find(".admin-shows-entry-delete").click(e => {
     let element = $(e.target);
 
     if (element.text() === "Confirm") {
@@ -1420,34 +1245,26 @@ function createShowEntry(datum) {
         method: "POST",
         body: JSON.stringify({
           password: adminPassword,
-          id: datum.id,
+          id: datum.id
         }),
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.status === "success") {
-            const headerMsg = new HeaderMessage(
-              "Show entry deleted successfully.",
-              "green",
-              2,
-            );
-            headerMsg.display();
+      .then(response => response.json())
+      .then(response => {
+        if (response.status === "success") {
+          const headerMsg = new HeaderMessage("Show entry deleted successfully.", "green", 2);
+          headerMsg.display();
 
-            div.remove();
-          } else {
-            const headerMsg = new HeaderMessage(
-              "An error occurred when deleting the show entry.",
-              "red",
-              2,
-            );
-            headerMsg.display();
-          }
+          div.remove();
+        } else {
+          const headerMsg = new HeaderMessage("An error occurred when deleting the show entry.", "red", 2);
+          headerMsg.display();
+        }
 
-          loadingAnimation.end();
-        });
+        loadingAnimation.end();
+      });
     } else {
       element.text("Confirm");
     }
@@ -1457,11 +1274,11 @@ function createShowEntry(datum) {
     div.find(".admin-shows-entry-archive").text("Unarchive");
   }
 
-  div.find(".admin-shows-entry-archive").click((e) => {
+  div.find(".admin-shows-entry-archive").click(e => {
     let element = $(e.target);
 
     let archived = element.text() === "Archive";
-
+    
     const loadingAnimation = new LoadingAnimation(element);
     loadingAnimation.start();
 
@@ -1470,51 +1287,41 @@ function createShowEntry(datum) {
       body: JSON.stringify({
         password: adminPassword,
         id: datum.id,
-        archived: archived,
+        archived: archived
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status === "success") {
-          const headerMsg = new HeaderMessage(
-            "Show entry archived successfully.",
-            "green",
-            2,
-          );
-          headerMsg.display();
-          loadingAnimation.end();
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Show entry archived successfully.", "green", 2);
+        headerMsg.display();
+        loadingAnimation.end();
 
-          element.css("width", "auto");
-          if (archived) {
-            element.text("Unarchive");
-          } else {
-            element.text("Archive");
-          }
+        element.css("width", "auto");
+        if (archived) {
+          element.text("Unarchive");
         } else {
-          const headerMsg = new HeaderMessage(
-            "An error occurred when archiving the show entry.",
-            "red",
-            2,
-          );
-          headerMsg.display();
-          loadingAnimation.end();
+          element.text("Archive");
         }
-      });
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when archiving the show entry.", "red", 2);
+        headerMsg.display();
+        loadingAnimation.end();
+      }
+    });
   });
 
   $("#admin-shows-entries").append(div);
 }
 
 fetch("/api/shows/data")
-  .then((response) => response.json())
-  .then((data) => {
+  .then(response => response.json())
+  .then(data => {
     data = data.data;
-    data = data
-      .filter((datum) => !datum.archived)
-      .concat(data.filter((datum) => datum.archived));
+    data = data.filter(datum => !datum.archived).concat(data.filter(datum => datum.archived));
 
     for (let datum of data) {
       createShowEntry(datum);
@@ -1522,9 +1329,10 @@ fetch("/api/shows/data")
   });
 
 // admin logo editor
-$("#admin-site-logo-upload").on("change", (e) => {
-  $("#admin-site-logo").attr("src", URL.createObjectURL(e.target.files[0]));
-});
+$("#admin-site-logo-upload")
+  .on("change", e => {
+    $("#admin-site-logo").attr("src", URL.createObjectURL(e.target.files[0]));
+  });
 
 $("#admin-site-logo-save").click(() => {
   const loadingAnimation = new LoadingAnimation($("#admin-site-logo-save"));
@@ -1538,26 +1346,18 @@ $("#admin-site-logo-save").click(() => {
     method: "post",
     body: formData,
   })
-    .then((response) => response.json())
-    .then((response2) => {
-      if (response2.status === "success") {
-        const headerMsg = new HeaderMessage(
-          "Logo updated successfully.",
-          "green",
-          2,
-        );
-        headerMsg.display();
-      } else {
-        const headerMsg = new HeaderMessage(
-          "An error occurred when updating the logo.",
-          "red",
-          2,
-        );
-        headerMsg.display();
-      }
+  .then(response => response.json())
+  .then(response2 => {
+    if (response2.status === "success") {
+      const headerMsg = new HeaderMessage("Logo updated successfully.", "green", 2);
+      headerMsg.display();
+    } else {
+      const headerMsg = new HeaderMessage("An error occurred when updating the logo.", "red", 2);
+      headerMsg.display();
+    }
 
-      loadingAnimation.end();
-    });
+    loadingAnimation.end();
+  });
 });
 
 $("#admin-site-logo-reset").click(() => {
@@ -1566,11 +1366,9 @@ $("#admin-site-logo-reset").click(() => {
 });
 
 // font import
-$("#admin-site-font-form").submit((e) => {
+$("#admin-site-font-form").submit(e => {
   e.preventDefault();
-  const loadingAnimation = new LoadingAnimation(
-    $("#admin-site-font-import-submit"),
-  );
+  const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-submit"));
   loadingAnimation.start();
 
   const importStr = $("#admin-site-font-import").val();
@@ -1582,45 +1380,33 @@ $("#admin-site-font-form").submit((e) => {
       body: JSON.stringify({
         password: adminPassword,
         embed: importStr,
-        name: fontName,
+        name: fontName
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status === "success") {
-          const headerMsg = new HeaderMessage(
-            "Font imported successfully.",
-            "green",
-            2,
-          );
-          headerMsg.display();
-          $("#admin-site-font-import").val(null);
-          $("#admin-site-font-name").val(null);
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Font imported successfully.", "green", 2);
+        headerMsg.display();
+        $("#admin-site-font-import").val(null);
+        $("#admin-site-font-name").val(null);
 
-          // add option to font selectors
-          let option = $(`<option name="${fontName}">${fontName}</option>`);
-          $("#admin-site-header-font").append(option.clone());
-          $("#admin-site-main-font").append(option.clone());
-        } else {
-          const headerMsg = new HeaderMessage(
-            "An error occurred when importing the font.",
-            "red",
-            2,
-          );
-          headerMsg.display();
-        }
+        // add option to font selectors
+        let option = $(`<option name="${fontName}">${fontName}</option>`);
+        $("#admin-site-header-font").append(option.clone());
+        $("#admin-site-main-font").append(option.clone());
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when importing the font.", "red", 2);
+        headerMsg.display();
+      }
 
-        loadingAnimation.end();
-      });
+      loadingAnimation.end();
+    });
   } else {
-    const headerMsg = new HeaderMessage(
-      "The font import is invalid.",
-      "red",
-      2,
-    );
+    const headerMsg = new HeaderMessage("The font import is invalid.", "red", 2);
     headerMsg.display();
     loadingAnimation.end();
   }
@@ -1632,8 +1418,8 @@ let mainFont = "Ubuntu";
 
 function loadFontOptions() {
   fetch("/api/settings")
-    .then((response) => response.json())
-    .then((response) => {
+    .then(response => response.json())
+    .then(response => {
       for (let font of response.data.fonts) {
         let option = $(`<option name="${font}">${font}</option>`);
         $("#admin-site-header-font").append(option.clone());
@@ -1659,32 +1445,26 @@ $("#admin-site-font-save").click(() => {
     body: JSON.stringify({
       password: adminPassword,
       headerFont: $("#admin-site-header-font").val(),
-      mainFont: $("#admin-site-main-font").val(),
+      mainFont: $("#admin-site-main-font").val()
     }),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   })
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.status === "success") {
-        const headerMsg = new HeaderMessage(
-          "Fonts updated successfully.",
-          "green",
-          2,
-        );
-        headerMsg.display();
-      } else {
-        const headerMsg = new HeaderMessage(
-          "An error occurred when updating the fonts.",
-          "red",
-          2,
-        );
-        headerMsg.display();
-      }
+  .then(response => response.json())
+  .then(response => {
+    if (response.status === "success") {
+      headerFont = $("#admin-site-header-font").val();
+      mainFont = $("#admin-site-main-font").val();
+      const headerMsg = new HeaderMessage("Fonts updated successfully.", "green", 2);
+      headerMsg.display();
+    } else {
+      const headerMsg = new HeaderMessage("An error occurred when updating the fonts.", "red", 2);
+      headerMsg.display();
+    }
 
-      loadingAnimation.end();
-    });
+    loadingAnimation.end();
+  });
 });
 
 // reset fonts
@@ -1696,42 +1476,32 @@ $("#admin-site-font-reset").click(() => {
 // reset imported fonts
 $("#admin-site-font-import-reset").click(() => {
   if ($("#admin-site-font-import-reset").text() === "Confirm") {
-    const loadingAnimation = new LoadingAnimation(
-      $("#admin-site-font-import-reset"),
-    );
+    const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-reset"));
     loadingAnimation.start();
-
+    
     fetch("/api/font/reset", {
       method: "POST",
       body: JSON.stringify({
-        password: adminPassword,
+        password: adminPassword
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status === "success") {
-          const headerMsg = new HeaderMessage(
-            "Fonts reset successfully.",
-            "green",
-            2,
-          );
-          headerMsg.display();
-        } else {
-          const headerMsg = new HeaderMessage(
-            "An error occurred when reseting the fonts.",
-            "red",
-            2,
-          );
-          headerMsg.display();
-        }
-
-        loadingAnimation.end();
-        $("#admin-site-font-import-reset").css("width", "auto");
-        $("#admin-site-font-import-reset").text("Reset Fonts");
-      });
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Fonts reset successfully.", "green", 2);
+        headerMsg.display();
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when reseting the fonts.", "red", 2);
+        headerMsg.display();
+      }
+  
+      loadingAnimation.end();
+      $("#admin-site-font-import-reset").css("width", "auto");
+      $("#admin-site-font-import-reset").text("Reset Fonts");
+    });
   } else {
     $("#admin-site-font-import-reset").text("Confirm");
   }
