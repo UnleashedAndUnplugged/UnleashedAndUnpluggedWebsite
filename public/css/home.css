@@ -13,8 +13,12 @@
   overflow-y: hidden;
 }
 
+#section1-right {
+  margin-left: -10px;
+}
+
 #section1-left {
-  width: 485px;
+  width: 550px;
 }
 
 #section1-right {
@@ -23,7 +27,7 @@
 
 #section1-logo {
   height: 400px;
-  width: 570px;
+  width: 550px;
   border-radius: 50px;
   object-fit: cover;
 }
@@ -135,7 +139,7 @@
 }
 
 /* section 3 */
-#body-title {
+#body-title, #contact-body-title {
   width: 100%;
   margin: 30px 0;
   text-align: center;
@@ -143,14 +147,14 @@
   color: #36289c;
 }
 
-#body-text {
+#body-text, #contact-body-text {
   font-size: 20px;
   margin: 0 100px 50px 100px;
   text-align: justify;
 }
 
 @media (max-width: 700px) {
-  #body-text {
+  #body-text, #contact-body-text {
     margin: 0 20px 50px 20px;
     text-align: left;
   }

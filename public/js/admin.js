@@ -300,6 +300,18 @@ fetch("/api/home/text")
     }
   });
 
+let homePageContactText;
+
+fetch("/api/home/contact/text")
+  .then(response => response.json())
+  .then(response => {
+    if (response.text) {
+      homePageContactText = response.text;
+      $("#admin-home-contact-text").val(homePageContactText);
+      $("#admin-home-contact-text").attr("disabled", false);
+    }
+  });
+
 // home page text save
 $("#admin-home-text-save").click(() => {
   const loadingAnimation = new LoadingAnimation($("#admin-home-text-save"));
@@ -336,9 +348,48 @@ $("#admin-home-text-save").click(() => {
   });
 });
 
+$("#admin-home-contact-text-save").click(() => {
+  const loadingAnimation = new LoadingAnimation($("#admin-home-contact-text-save"));
+  loadingAnimation.start();
+
+  $("#admin-home-contact-text-save").attr("disabled", true);
+  $("#admin-home-contact-text").attr("disabled", true);
+
+  fetch("/api/home/contact/text", {
+    method: "POST",
+    body: JSON.stringify({
+      password: adminPassword,
+      text: $("#admin-home-contact-text").val()
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(response => {
+    let headerMsg;
+
+    if (response.status === "success") {
+      headerMsg = new HeaderMessage("Home page contact info text updated successfully.", "green", 2);
+    } else {
+      headerMsg = new HeaderMessage("An error occurred when updating the home page contact info text.", "red", 2);
+    }
+
+    loadingAnimation.end();
+    $("#admin-home-contact-text-save").attr("disabled", false);
+    $("#admin-home-contact-text").attr("disabled", false);
+
+    headerMsg.display();
+  });
+});
+
 // home page text reset
 $("#admin-home-text-reset").click(() => {
   $("#admin-home-text").val(homePageText);
+});
+
+$("#admin-home-contact-text-reset").click(() => {
+  $("#admin-home-contact-text").val(homePageContactText);
 });
 
 // refresh home images
@@ -1362,6 +1413,9 @@ $("#admin-site-font-form").submit(e => {
 });
 
 // load font options
+let headerFont = "Ubuntu";
+let mainFont = "Ubuntu";
+
 function loadFontOptions() {
   fetch("/api/settings")
     .then(response => response.json())
@@ -1372,8 +1426,10 @@ function loadFontOptions() {
         $("#admin-site-main-font").append(option.clone());
       }
 
-      $("#admin-site-header-font").val(response.data.headerFont);
-      $("#admin-site-main-font").val(response.data.mainFont);
+      headerFont = response.data.headerFont;
+      mainFont = response.data.mainFont;
+      $("#admin-site-header-font").val(headerFont);
+      $("#admin-site-main-font").val(mainFont);
     });
 }
 
@@ -1398,6 +1454,8 @@ $("#admin-site-font-save").click(() => {
   .then(response => response.json())
   .then(response => {
     if (response.status === "success") {
+      headerFont = $("#admin-site-header-font").val();
+      mainFont = $("#admin-site-main-font").val();
       const headerMsg = new HeaderMessage("Fonts updated successfully.", "green", 2);
       headerMsg.display();
     } else {
@@ -1410,6 +1468,12 @@ $("#admin-site-font-save").click(() => {
 });
 
 // reset fonts
+$("#admin-site-font-reset").click(() => {
+  $("#admin-site-header-font").val(headerFont);
+  $("#admin-site-main-font").val(mainFont);
+});
+
+// reset imported fonts
 $("#admin-site-font-import-reset").click(() => {
   if ($("#admin-site-font-import-reset").text() === "Confirm") {
     const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-reset"));
