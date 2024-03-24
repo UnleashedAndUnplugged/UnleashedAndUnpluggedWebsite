@@ -323,7 +323,7 @@ main {
   margin-bottom: 20px;
 }
 
-#admin-site-logo-container h2 {
+#admin-site-logo-container h2, #admin-site-font-container h2 {
   color: #333133;
 }
 
@@ -337,14 +337,62 @@ main {
   cursor: pointer;
 }
 
-#admin-site-logo-row1, #admin-site-logo-row2 {
+#admin-site-logo-row1, #admin-site-logo-row2, #admin-site-font-row1, #admin-site-font-row2, #admin-site-font-row3, #admin-site-font-row4 {
   display: flex;
   width: 100%;
   justify-content: center;
   margin: 20px 0;
 }
 
-#admin-site-logo-save, #admin-site-logo-save {
+#admin-site-logo-save, #admin-site-font-save {
+  margin: 0 10px;
+}
+
+#admin-site-font-row1 {
+  display: flex;
+  align-items: center;
+}
+
+#admin-site-font-row1 label, #admin-site-font-row3 label {
+  margin-right: 3px;
+  font-size: 17px;
+}
+
+#admin-site-main-font, #admin-site-header-font {
+  padding: 5px;
+  margin-right: 50px;
+  font-size: 17px;
+}
+
+#admin-site-font-row3 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+#admin-site-font-row3 label {
+  width: 500px;
+}
+
+#admin-site-font-name {
+  width: 500px;
+  padding: 5px;
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+#admin-site-font-import {
+  padding: 5px;
+  resize: none;
+  margin-top: 5px;
+  width: 500px;
+  font-size: 15px;
+  height: 200px;
+}
+
+#admin-site-font-import-submit {
   margin: 0 10px;
 }
 
@@ -365,11 +413,11 @@ main {
   margin-bottom: 20px;
 }
 
-#admin-home-text-container h2, #admin-home-imgs-container1 h2 {
+#admin-home-text-container h2, #admin-home-contact-text-container h2, #admin-home-imgs-container1 h2 {
   color: #333133;
 }
 
-#admin-home-text {
+#admin-home-text, #admin-home-contact-text {
   font-size: 15px;
   padding: 5px;
   width: calc(100% - 15px);
@@ -379,13 +427,13 @@ main {
   resize: none;
 }
 
-#admin-home-text-options, #admin-home-imgs-options {
+#admin-home-text-options, #admin-home-contact-text-options, #admin-home-imgs-options {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-#admin-home-text-save, #admin-home-text-reset, #admin-home-imgs-save, #admin-home-imgs-reset {
+#admin-home-text-save, #admin-home-text-reset, #admin-home-contact-text-save, #admin-home-contact-text-reset, #admin-home-imgs-save, #admin-home-imgs-reset {
   margin: 0 10px;
 }
 

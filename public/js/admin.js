@@ -300,6 +300,18 @@ fetch("/api/home/text")
     }
   });
 
+let homePageContactText;
+
+fetch("/api/home/contact/text")
+  .then(response => response.json())
+  .then(response => {
+    if (response.text) {
+      homePageContactText = response.text;
+      $("#admin-home-contact-text").val(homePageContactText);
+      $("#admin-home-contact-text").attr("disabled", false);
+    }
+  });
+
 // home page text save
 $("#admin-home-text-save").click(() => {
   const loadingAnimation = new LoadingAnimation($("#admin-home-text-save"));
@@ -336,9 +348,48 @@ $("#admin-home-text-save").click(() => {
   });
 });
 
+$("#admin-home-contact-text-save").click(() => {
+  const loadingAnimation = new LoadingAnimation($("#admin-home-contact-text-save"));
+  loadingAnimation.start();
+
+  $("#admin-home-contact-text-save").attr("disabled", true);
+  $("#admin-home-contact-text").attr("disabled", true);
+
+  fetch("/api/home/contact/text", {
+    method: "POST",
+    body: JSON.stringify({
+      password: adminPassword,
+      text: $("#admin-home-contact-text").val()
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(response => {
+    let headerMsg;
+
+    if (response.status === "success") {
+      headerMsg = new HeaderMessage("Home page contact info text updated successfully.", "green", 2);
+    } else {
+      headerMsg = new HeaderMessage("An error occurred when updating the home page contact info text.", "red", 2);
+    }
+
+    loadingAnimation.end();
+    $("#admin-home-contact-text-save").attr("disabled", false);
+    $("#admin-home-contact-text").attr("disabled", false);
+
+    headerMsg.display();
+  });
+});
+
 // home page text reset
 $("#admin-home-text-reset").click(() => {
   $("#admin-home-text").val(homePageText);
+});
+
+$("#admin-home-contact-text-reset").click(() => {
+  $("#admin-home-contact-text").val(homePageContactText);
 });
 
 // refresh home images
@@ -1312,4 +1363,146 @@ $("#admin-site-logo-save").click(() => {
 $("#admin-site-logo-reset").click(() => {
   $("#admin-site-logo").attr("src", "/api/logo");
   $("#admin-site-logo-unpload").val(null);
+});
+
+// font import
+$("#admin-site-font-form").submit(e => {
+  e.preventDefault();
+  const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-submit"));
+  loadingAnimation.start();
+
+  const importStr = $("#admin-site-font-import").val();
+  const fontName = $("#admin-site-font-name").val();
+
+  if (importStr.substring(0, 5) === "<link") {
+    fetch("/api/font/import", {
+      method: "POST",
+      body: JSON.stringify({
+        password: adminPassword,
+        embed: importStr,
+        name: fontName
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Font imported successfully.", "green", 2);
+        headerMsg.display();
+        $("#admin-site-font-import").val(null);
+        $("#admin-site-font-name").val(null);
+
+        // add option to font selectors
+        let option = $(`<option name="${fontName}">${fontName}</option>`);
+        $("#admin-site-header-font").append(option.clone());
+        $("#admin-site-main-font").append(option.clone());
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when importing the font.", "red", 2);
+        headerMsg.display();
+      }
+
+      loadingAnimation.end();
+    });
+  } else {
+    const headerMsg = new HeaderMessage("The font import is invalid.", "red", 2);
+    headerMsg.display();
+    loadingAnimation.end();
+  }
+});
+
+// load font options
+let headerFont = "Ubuntu";
+let mainFont = "Ubuntu";
+
+function loadFontOptions() {
+  fetch("/api/settings")
+    .then(response => response.json())
+    .then(response => {
+      for (let font of response.data.fonts) {
+        let option = $(`<option name="${font}">${font}</option>`);
+        $("#admin-site-header-font").append(option.clone());
+        $("#admin-site-main-font").append(option.clone());
+      }
+
+      headerFont = response.data.headerFont;
+      mainFont = response.data.mainFont;
+      $("#admin-site-header-font").val(headerFont);
+      $("#admin-site-main-font").val(mainFont);
+    });
+}
+
+loadFontOptions();
+
+// submit fonts
+$("#admin-site-font-save").click(() => {
+  const loadingAnimation = new LoadingAnimation($("#admin-site-font-save"));
+  loadingAnimation.start();
+
+  fetch("/api/font/set", {
+    method: "POST",
+    body: JSON.stringify({
+      password: adminPassword,
+      headerFont: $("#admin-site-header-font").val(),
+      mainFont: $("#admin-site-main-font").val()
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(response => {
+    if (response.status === "success") {
+      headerFont = $("#admin-site-header-font").val();
+      mainFont = $("#admin-site-main-font").val();
+      const headerMsg = new HeaderMessage("Fonts updated successfully.", "green", 2);
+      headerMsg.display();
+    } else {
+      const headerMsg = new HeaderMessage("An error occurred when updating the fonts.", "red", 2);
+      headerMsg.display();
+    }
+
+    loadingAnimation.end();
+  });
+});
+
+// reset fonts
+$("#admin-site-font-reset").click(() => {
+  $("#admin-site-header-font").val(headerFont);
+  $("#admin-site-main-font").val(mainFont);
+});
+
+// reset imported fonts
+$("#admin-site-font-import-reset").click(() => {
+  if ($("#admin-site-font-import-reset").text() === "Confirm") {
+    const loadingAnimation = new LoadingAnimation($("#admin-site-font-import-reset"));
+    loadingAnimation.start();
+    
+    fetch("/api/font/reset", {
+      method: "POST",
+      body: JSON.stringify({
+        password: adminPassword
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.status === "success") {
+        const headerMsg = new HeaderMessage("Fonts reset successfully.", "green", 2);
+        headerMsg.display();
+      } else {
+        const headerMsg = new HeaderMessage("An error occurred when reseting the fonts.", "red", 2);
+        headerMsg.display();
+      }
+  
+      loadingAnimation.end();
+      $("#admin-site-font-import-reset").css("width", "auto");
+      $("#admin-site-font-import-reset").text("Reset Fonts");
+    });
+  } else {
+    $("#admin-site-font-import-reset").text("Confirm");
+  }
 });

@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="/public/css/main.css">
     <link rel="stylesheet" href="/public/css/admin.css">
     <link rel="icon" type="image/png" href="/api/logo">
+    <div id="font-links-container"></div>
     <title>Unleashed and Unplugged</title>
   </head>
   <body>
+    <script src="/public/js/fontLoader.js"></script>
+    
     <header></header>
 
     <main>
@@ -105,6 +108,44 @@
               <button id="admin-site-logo-reset" class="button">Reset</button>
             </div>
           </div>
+
+          <div id="admin-site-font-container">
+            <h2>Font Editor</h2>
+
+            <div id="admin-site-font-row1">
+              <span>
+                <label for="admin-site-main-font">Main Font:</label>
+                <select id="admin-site-main-font" class="input">
+                  <option value="Ubuntu">Ubuntu</option>
+                </select>
+              </span>
+
+              <span>
+                <label for="admin-site-header-font">Header Font:</label>
+                <select id="admin-site-header-font" class="input">
+                  <option value="Ubuntu">Ubuntu</option>
+                </select>
+              </span>
+            </div>
+
+            <div id="admin-site-font-row2">
+              <button id="admin-site-font-save" class="button">Save</button>
+              <button id="admin-site-font-reset" class="button">Reset</button>
+            </div>
+
+            <form id="admin-site-font-form">
+              <div id="admin-site-font-row3">
+                <label for="admin-site-font-name">Import Font:</label>
+                <input class="input" id="admin-site-font-name" placeholder="Enter font name" required>
+                <textarea class="input" id="admin-site-font-import" placeholder="Enter embed code from Google Fonts." required></textarea>
+              </div>
+  
+              <div id="admin-site-font-row4">
+                <button id="admin-site-font-import-submit" type="submit" class="button">Import</button>
+                <button id="admin-site-font-import-reset" type="button" class="button">Reset Fonts</button>
+              </div>
+            </form>
+          </div>
         </div>
 
         <div id="admin-home-control-container">
@@ -171,6 +212,16 @@
             <div id="admin-home-text-options">
               <button id="admin-home-text-save" class="button">Save</button>
               <button id="admin-home-text-reset" class="button">Reset</button>
+            </div>
+          </div>
+
+          <div id="admin-home-contact-text-container">
+            <label for="admin-home-contact-text"><h2>Home Page Contact Info Text</h2></label>
+            <textarea type="text" id="admin-home-contact-text" class="input" disabled></textarea>
+
+            <div id="admin-home-contact-text-options">
+              <button id="admin-home-contact-text-save" class="button">Save</button>
+              <button id="admin-home-contact-text-reset" class="button">Reset</button>
             </div>
           </div>
         </div>
