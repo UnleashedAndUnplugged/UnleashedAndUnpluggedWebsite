@@ -13,8 +13,12 @@
   overflow-y: hidden;
 }
 
+#section1-right {
+  margin-left: -10px;
+}
+
 #section1-left {
-  width: 485px;
+  width: 550px;
 }
 
 #section1-right {
@@ -23,7 +27,7 @@
 
 #section1-logo {
   height: 400px;
-  width: 570px;
+  width: 550px;
   border-radius: 50px;
   object-fit: cover;
 }
