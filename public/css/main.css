@@ -67,6 +67,7 @@ header hr {
 
 #header-logo {
   height: 100px;
+  border-radius: 10px;
 }
 
 #header-links {
