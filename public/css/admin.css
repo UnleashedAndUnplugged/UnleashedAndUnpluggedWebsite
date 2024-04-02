@@ -5,7 +5,7 @@ main {
 }
 
 #admin-login-form {
-  border: 5px solid #1c1b1c;
+  border: 5px solid #919191;
   padding: 30px;
   border-radius: 30px;
   display: flex;
@@ -48,14 +48,18 @@ main {
   margin-bottom: 50px;
 }
 
-#admin-email-control-container > h1 {
-  color: #333133;
+#admin-email-control-container > h1, #admin-site-control-container > h1, #admin-home-control-container > h1, #admin-house-rules-control-container > h1, #admin-artists-control-container > h1, #admin-shows-control-container > h1, #admin-gallery-control-container > h1 {
+  color: #919191;
   font-weight: bold;
 }
 
-#admin-email-control-container > hr {
-  border: 1.5px solid #1c1b1c;
+#admin-email-control-container > hr, #admin-site-control-container > hr, #admin-home-control-container > hr, #admin-house-rules-control-container > hr, #admin-artists-control-container > hr, #admin-shows-control-container > hr, #admin-gallery-control-container > hr {
+  border: 1.5px solid #4d4d4d;
   margin-bottom: 20px;
+}
+
+#admin-site-logo-container h2, #admin-site-font-container h2, #admin-home-text-container h2, #admin-home-contact-text-container h2, #admin-home-imgs-container1 h2, #admin-house-rules-text-container h2, #admin-artists-text-container h2, #admin-house-rules-img-container h2, #admin-artists-img-container h2, #admin-shows-new-entry-container h2, #admin-shows-entries-container h2, #admin-gallery-new-entry-container h2, #admin-gallery-entries-container h2 {
+  color: #919191;
 }
 
 #admin-email-control-panels {
@@ -67,7 +71,7 @@ main {
 #admin-email-list {
   height: calc(100% - 4px);
   width: 400px;
-  border: 2px solid #333133;
+  border: 2px solid #919191;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -187,7 +191,7 @@ main {
 
 .admin-email-label {
   font-weight: bold;
-  color: #333133;
+  color: #919191;
   font-size: 18px;
 }
 
@@ -313,20 +317,6 @@ main {
   margin-bottom: 50px;
 }
 
-#admin-site-control-container > h1 {
-  color: #333133;
-  font-weight: bold;
-}
-
-#admin-site-control-container > hr {
-  border: 1.5px solid #1c1b1c;
-  margin-bottom: 20px;
-}
-
-#admin-site-logo-container h2, #admin-site-font-container h2 {
-  color: #333133;
-}
-
 #admin-site-logo-upload {
   display: none;
 }
@@ -403,20 +393,6 @@ main {
   margin-bottom: 50px;
 }
 
-#admin-home-control-container > h1 {
-  color: #333133;
-  font-weight: bold;
-}
-
-#admin-home-control-container > hr {
-  border: 1.5px solid #1c1b1c;
-  margin-bottom: 20px;
-}
-
-#admin-home-text-container h2, #admin-home-contact-text-container h2, #admin-home-imgs-container1 h2 {
-  color: #333133;
-}
-
 #admin-home-text, #admin-home-contact-text {
   font-size: 15px;
   padding: 5px;
@@ -456,7 +432,7 @@ main {
   border-radius: 50%;
   height: 140px;
   width: 140px;
-  background: #333133;
+  background: black;
   margin: 9px 3px;
   cursor: pointer;
   object-fit: cover;
@@ -471,20 +447,6 @@ main {
   width: calc(100vw - 100px);
   margin-top: 50px;
   margin-bottom: 50px;
-}
-
-#admin-house-rules-control-container > h1, #admin-artists-control-container > h1 {
-  color: #333133;
-  font-weight: bold;
-}
-
-#admin-house-rules-control-container > hr, #admin-artists-control-container > hr {
-  border: 1.5px solid #1c1b1c;
-  margin-bottom: 20px;
-}
-
-#admin-house-rules-text-container h2, #admin-artists-text-container h2, #admin-house-rules-img-container h2, #admin-artists-img-container h2 {
-  color: #333133;
 }
 
 #admin-house-rules-text, #admin-artists-text {
@@ -530,20 +492,6 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   width: calc(100vw - 100px);
   margin-top: 50px;
   margin-bottom: 50px;
-}
-
-#admin-shows-control-container > h1 {
-  color: #333133;
-  font-weight: bold;
-}
-
-#admin-shows-control-container > hr {
-  border: 1.5px solid #1c1b1c;
-  margin-bottom: 20px;
-}
-
-#admin-shows-new-entry-container h2, #admin-shows-entries-container h2 {
-  color: #333133;
 }
 
 #admin-shows-new-entry-row1 {
@@ -710,20 +658,6 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
   margin-bottom: 50px;
 }
 
-#admin-gallery-control-container > h1 {
-  color: #333133;
-  font-weight: bold;
-}
-
-#admin-gallery-control-container > hr {
-  border: 1.5px solid #1c1b1c;
-  margin-bottom: 20px;
-}
-
-#admin-gallery-new-entry-container h2, #admin-gallery-entries-container h2 {
-  color: #333133;
-}
-
 #admin-gallery-new-entry-title {
   font-size: 20px;
   padding: 5px;
@@ -737,7 +671,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 #admin-gallery-new-entry-imgs1 {
-  background: #bfcaca;
+  background: #f2f2f2;
   border-radius: 40px;
   padding: 20px;
   border: 2px solid #393460;
@@ -868,7 +802,7 @@ label[for="admin-house-rules-img-upload"], label[for="admin-artists-img-upload"]
 }
 
 .admin-gallery-entry {
-  background: #bfcaca;
+  background: #f2f2f2;
   border-radius: 40px;
   padding: 20px;
   margin: 0 50px 0 0;
