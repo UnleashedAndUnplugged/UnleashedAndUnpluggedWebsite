@@ -36,7 +36,7 @@
   border-radius: 50%;
   height: 140px;
   width: 140px;
-  background: #333133;
+  background: black;
   margin: 9px 3px;
   cursor: pointer;
   object-fit: cover;
@@ -74,7 +74,7 @@
 
 /* section 2 */
 #section2 {
-  background: #7c8283;
+  background: #242429;
   margin-top: 50px;
   padding: 50px;
   display: flex;
