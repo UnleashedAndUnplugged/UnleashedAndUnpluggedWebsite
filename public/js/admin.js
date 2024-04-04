@@ -210,7 +210,7 @@ function sendEmail(recipient) {
   emailHTML.load("/public/components/email.html", () => {
     emailHTML.find("#email-body").html($("#admin-email-body").val().replaceAll("\n", "<br>"));
     emailHTML.find("#email-subject").text($("#admin-email-subject").val());
-    emailHTML.find("#unsubscribe").attr("href", `https://unleashedandunplugged.illusion705.repl.co/unsubscribe/${recipient}`);
+    emailHTML.find("#unsubscribe").attr("href", `https://unleashedandunpluggedconcerts/unsubscribe/${recipient}`);
 
     fetch("/api/admin/email/send", {
       method: "POST",
