@@ -233,7 +233,8 @@ function sendEmail(recipient) {
         $("#admin-email-subject").val(null);
         $("#admin-email-body").val(null);
         $("#admin-email-recipients").html("<span class=\"admin-email-label\">Recipients:</span>");
-        $(".admin-email-list-select").attr("checked", false);
+        $(".admin-email-list-select").prop("checked", false);
+        $("#admin-email-select-all").prop("checked", false);
       } else {
         headerMsg = new HeaderMessage("An error occurred when sending the email.", "red", 2);
       }
